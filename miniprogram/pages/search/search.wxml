@@ -1,0 +1,7 @@
+<!--miniprogram/pages/search/search.wxml-->
+<view>
+	<view class="head">
+		<input class="search" type="text" placeholder="🔍  音乐/视频/用户" bindtap="click">
+    </input>
+	</view>
+</view>

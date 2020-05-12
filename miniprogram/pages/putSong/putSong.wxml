@@ -1,0 +1,24 @@
+<!--miniprogram/pages/putSong/putSong.wxml-->
+<view class="all">
+<view class="head">
+	<input class="search" type="text" placeholder="🔍  音乐/视频/用户" bindtap="click">
+    </input>
+</view>
+<view wx:for="{{song}}"wx:for-item="song"  class="body" >
+<block>
+<image src="{{song.micPic}}" class="micPic" bindtap="toPlay" data-pic="{{song.micPic}}"/>
+
+<text class="songName" bindtap="toPlay" data-name="{{song.name}}" data-singer="{{song.singer}}" data-id='{{song.id}}'>{{song.name}}</text>
+<text class="singer" bindtap="toPlay" data-name="{{song.name}}" data-id='{{song.id}}' data-singer="{{song.singer}}">{{song.singer}}</text>
+
+
+
+
+
+<!--<image src="../../aissits/image/play.png"  bindtap="play" data-id='myAudio{{song.id}}' class="butPlay" /> 
+<image src="../../aissits/image/paused.png"  bindtap="paused" data-id='myAudio{{song.id}}' class="butPaused" />
+<image src="../../aissits/image/right.png"  bindtap="nextPlay" data-id='myAudio{{song.id}}' class="nextPlay" />-->
+</block>
+</view>
+</view>
+

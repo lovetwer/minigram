@@ -1,0 +1,16 @@
+<!--miniprogram/pages/paly/play.wxml-->
+<view class="all">
+	<view class="head">
+		<view class="head1"><text class="songName">{{song.name}}</text></view>
+		<view class="head2"><text class="singer">{{song.singer}}</text></view>
+	</view>
+	<view class="micImg">
+		<image src="{{song.micPic}}" data-src='{{song.url}}' class="playPic" bindtap="playing" />
+	</view>
+	
+	<view class="center">
+		<image src="http://192.168.137.1/img/xiazai.png" class="down" bindtap="dow" data-file='{{song.name}}'/>
+		<image src="http://192.168.137.1/img/myheart.png" class="love" bindtap="collect" data-name='{{song.name}}' style="display:{{showOut}};"/>
+		<image src="http://192.168.137.1/img/loved.png" class="loved" bindtap="collect" data-name='{{song.name}}' style="display:{{show}};"/>
+	</view>
+</view>

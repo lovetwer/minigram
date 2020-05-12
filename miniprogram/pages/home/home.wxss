@@ -1,0 +1,50 @@
+/* miniprogram/pages/home/home.wxss */
+.head{
+  float: left;
+  margin-left: 10%;
+  width: 100%;
+}
+.search{
+ color:#9B9B9B;
+  background-color:rgba(190, 185, 185, 0.12); 
+ border:1px ;
+ list-style:none;
+  border-radius:20px; 
+ outline: none;
+ text-align: center;
+ width: 80%;
+ height: 30px;
+ margin-top: 10%;
+}
+.put{
+background-color: lawngreen;
+margin-top: 10%;
+margin-left: 5%;
+width: 40%;
+height: 100px;
+float: left;
+}
+.hot{
+  background-color:red;
+  margin-top: 10%;
+  margin-right: 5%;
+  width: 40%;
+height: 100px;
+float: right;
+}
+.up{
+  background-color: blue;
+  width: 40%;
+  margin-top: 10%;
+  margin-left: 5%;
+height: 100px;
+float: left;
+}
+.singer{
+  background-color: yellow;
+  margin-top: 10%;
+  margin-right: 5%;
+  width: 40%;
+height: 100px;
+float: right;
+}
