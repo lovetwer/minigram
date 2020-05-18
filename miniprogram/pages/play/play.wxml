@@ -10,7 +10,7 @@
 	
 	<view class="center">
 		<image src="http://192.168.137.1/img/xiazai.png" class="down" bindtap="dow" data-file='{{song.name}}'/>
-		<image src="http://192.168.137.1/img/myheart.png" class="love" bindtap="collect" data-name='{{song.name}}' style="display:{{showOut}};"/>
-		<image src="http://192.168.137.1/img/loved.png" class="loved" bindtap="collect" data-name='{{song.name}}' style="display:{{show}};"/>
+		<image src="http://192.168.137.1/img/myheart.png" class="love" bindtap="collect" data-name='{{song.name}}' wx:if="{{show}}"/>
+		<image src="http://192.168.137.1/img/loved.png" class="loved" bindtap="collect" data-name='{{song.name}}' wx:else/>
 	</view>
 </view>

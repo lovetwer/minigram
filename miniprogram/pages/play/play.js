@@ -93,16 +93,14 @@ Page({
               success: function (res) {
                 if(res.data.song!=null){
                   th.setData({
-                    show:'none',
-                    showOut:'true'
+                    show:true
                    
                   })
                   console.log('000000000000000000')
                 }
                 else{
                   th.setData({
-                    show:'true',
-                    showOut:'none'
+                    show:false
                    
                   })
                   console.log('11111111111')
@@ -129,13 +127,11 @@ collect: function(e){
       console.log(res.data)
       if(res.data.status==0){
         th.setData({
-          show:'none',
-          showOut:'true'
+          show:false
         })
       }else{
         th.setData({
-          show:'true',
-          showOut:'none'
+          show:true
         })
       }
     }

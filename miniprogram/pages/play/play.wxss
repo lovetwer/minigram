@@ -90,16 +90,25 @@ page{
   height: 30px;
 }
 .love{
-  float: left;
-  margin-left: 50%;
-  margin-top: -10%;
   width: 50px;
   height: 50px;
+  display: flex;
+  /*设置显示样式**/
+  align-items: center;
+  /**子view垂直居中*/
+  vertical-align: center;
+  /**垂直居中*/
+  justify-content: center;
 }
 .loved{
-  position: absolute;
+  float: left;
   width: 50px;
   height: 50px;
-  right:40%;
-  top:49.5%
+  display: flex;
+  /*设置显示样式**/
+  align-items: center;
+  /**子view垂直居中*/
+  vertical-align: center;
+  /**垂直居中*/
+  justify-content: center;
 }
