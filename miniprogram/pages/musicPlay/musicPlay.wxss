@@ -1,0 +1,28 @@
+/* miniprogram/pages/musicPlay/musicPlay.wxss */
+.container{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20rpx;
+}
+
+.progress{
+  display:flex;
+  margin-top: 40rpx;
+  align-items: center;
+}
+.progress .slider{
+  width:380rpx;
+}
+
+.control{
+  display: flex;
+  margin-top: 40rpx;
+}
+.control .center{
+  margin:0 20rpx;
+}
+.control .play,.stop,.back,.forward{
+  font-size: 60rpx;
+}
