@@ -17,7 +17,8 @@
  margin-top: 10%;
 }
 .put{
-background-color: lawngreen;
+background-image: url(http://192.168.1.3/img/put.jpg);
+background-size: cover;
 margin-top: 10%;
 margin-left: 5%;
 width: 40%;
@@ -25,7 +26,8 @@ height: 100px;
 float: left;
 }
 .hot{
-  background-color:red;
+  background-image: url(http://192.168.1.3/img/hot.jpg);
+background-size: cover;
   margin-top: 10%;
   margin-right: 5%;
   width: 40%;
@@ -33,7 +35,8 @@ height: 100px;
 float: right;
 }
 .up{
-  background-color: blue;
+  background-image: url(http://192.168.1.3/img/biaosheng.jpg);
+background-size: cover;
   width: 40%;
   margin-top: 10%;
   margin-left: 5%;
@@ -41,7 +44,8 @@ height: 100px;
 float: left;
 }
 .singer{
-  background-color: yellow;
+  background-image: url(http://192.168.1.3/img/new.png);
+background-size: cover;
   margin-top: 10%;
   margin-right: 5%;
   width: 40%;

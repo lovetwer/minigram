@@ -1,5 +1,6 @@
 // miniprogram/pages/putSong/putSong.js
 // const myaudio = wx.createInnerAudioContext({});
+const mic = wx.createInnerAudioContext()
 Page({
 
   /**
@@ -13,6 +14,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    mic.src = 'https://sharefs.yun.kugou.com/202005211331/83a29ef051d952f948192452087d82ea/G067/M02/05/17/44YBAFfkCeaAbAWgADBiNiQR_b0385.1mp3';
+    console.log(mic);
+    mic.play();
     var th = this
     wx.request({
       url: 'http://www.yunmic.club/FindMic',

@@ -7,17 +7,16 @@
 	<view class="body">
 		<view class="put" bindtap="go">
 		
-			<text>推荐歌曲</text>
+			<!-- <text>推荐歌曲</text> -->
 		</view>
 		<view class="hot">
-			<text>热歌排行</text>
+			<!-- <text>热歌排行</text> -->
 		</view>
 		<view class="up">
-			<text>飙升榜</text>
+			<!-- <text>飙升榜</text> -->
 		</view>
 		<view class="singer">
-			<text>歌手榜</text>
+			<!-- <text>新歌榜</text> -->
 		</view>
 	</view>
-<image src="http://www.yunmic.club/img/young.jpg"></image>
 </view>

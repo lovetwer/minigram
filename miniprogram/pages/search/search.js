@@ -7,16 +7,22 @@ Page({
   data: {
 
   },
-  click(){
+  click: function(e){
+    this.setData({
+      a: e.detail.value
+    })
+    console.log(this.data.a)
     wx.request({
-      url: 'http://192.168.137.1/likeName?name=张三',
-      method:'get',
-      header:{
-        'content-type':'application/json'
+      url: 'http://192.168.1.3/search',
+      method:'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        'a': this.data.a,
       },
       success: function(res){
-        console.log(res)
-        console.log(res.data.name)
+        console.log(res.data.status)
       }
     })
   },
@@ -24,7 +30,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-this.click();
   },
 
   /**
