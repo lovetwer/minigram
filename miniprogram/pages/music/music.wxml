@@ -1,0 +1,12 @@
+<!--miniprogram/pages/music/music.wxml-->
+<view class="container">
+  <block wx:for="{{musics}}" wx:key="{{item._id}}">
+    <view class="item" catchtap="hadleToPlayPage" data-id="{{item._id}}">
+      <image class="img" src="{{item.coverImg}}"></image>
+      <view class="info">
+        <view><text>歌名：</text>{{item.title}}</view>
+        <view><text>歌手：</text>{{item.singer}}</view>
+      </view>
+    </view>
+  </block>
+</view>

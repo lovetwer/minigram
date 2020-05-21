@@ -24,9 +24,10 @@
 	},
 	"appid": "wx64d5cdd50ddd1e90",
 	"projectname": "app",
-	"libVersion": "2.10.4",
+	"libVersion": "2.11.0",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -75,6 +76,19 @@
 					"name": "pages/putSong/putSong",
 					"pathName": "pages/putSong/putSong",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/music/music",
+					"pathName": "pages/music/music",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/musicPlay/musicPlay",
+					"pathName": "pages/musicPlay/musicPlay",
 					"scene": null
 				}
 			]

@@ -1,0 +1,29 @@
+<!--miniprogram/pages/musicPlay/musicPlay.wxml-->
+<view class="container">
+
+  <image class="img" src="{{musicObj.coverImg}}"></image>
+
+  <view class="progress">
+    <view>{{currentTime}}</view>
+    <view>
+      <slider class="slider" block-size="{{16}}" />
+    </view>
+    <view>{{duration}}</view>
+  </view>
+
+  <view class="control">
+    <view class="left">
+      <text class="back iconfont icon-shangyishoushangyige"></text>
+    </view>
+    <view class="center">
+      <text class="stop iconfont icon-zanting_huaban" catchtap="handlePause" wx:if="{{playStatus}}"></text>
+      <text class="play iconfont icon-iconset0429" catchtap="handlePlay" wx:else ></text>
+    </view>
+
+    <view class="right">
+      <text class="forward iconfont icon-xiayigexiayishou"></text>
+    </view>
+  </view>
+
+  
+</view>
