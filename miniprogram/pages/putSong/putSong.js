@@ -15,7 +15,7 @@ Page({
   onLoad: function (options) {
     var th = this
     wx.request({
-      url: 'http://192.168.137.1/FindMic',
+      url: 'http://www.yunmic.club/FindMic',
       data: { 'song':''
       },
       method:'get',
