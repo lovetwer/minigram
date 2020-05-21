@@ -1,7 +1,6 @@
 // miniprogram/pages/musicPlay/musicPlay.js
 wx.cloud.init()
 const db = wx.cloud.database()
-const innerAudioContext = wx.createInnerAudioContext()
 const moment = require('../../libs/moment')
 Page({
 
@@ -14,11 +13,12 @@ Page({
     duration:0,
     currentTime:0
   },
-
+  innerAudioContext:null,
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.innerAudioContext = wx.createInnerAudioContext()
     this.getMusicById(options.id)
   },
   async getMusicById(id){
@@ -28,13 +28,13 @@ Page({
       musicObj:res.data
     },()=>{
       console.log('setData')
-      innerAudioContext.src = res.data.src
-      innerAudioContext.autoplay = true
-      innerAudioContext.onPlay(() => {
+      this.innerAudioContext.src = res.data.src
+      this.innerAudioContext.autoplay = true
+      this.innerAudioContext.onPlay(() => {
         console.log('开始播放')
-        innerAudioContext.onTimeUpdate(()=>{
-          let currentTime = moment(innerAudioContext.currentTime * 1000).format('mm:ss')
-          let duration = moment(innerAudioContext.duration * 1000).format('mm:ss')
+        this.innerAudioContext.onTimeUpdate(()=>{
+          let currentTime = moment(this.innerAudioContext.currentTime * 1000).format('mm:ss')
+          let duration = moment(this.innerAudioContext.duration * 1000).format('mm:ss')
           console.log('duration',duration)
           this.setData({
             currentTime,
@@ -56,13 +56,13 @@ Page({
     this.setData({
       playStatus:true
     })
-    innerAudioContext.play()
+    this.innerAudioContext.play()
   },
   handlePause(){
     this.setData({
       playStatus:false
     })
-    innerAudioContext.pause()
+    this.innerAudioContext.pause()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -82,14 +82,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.innerAudioContext.destroy()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    this.innerAudioContext.destroy()
   },
 
   /**
