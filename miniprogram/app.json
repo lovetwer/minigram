@@ -8,6 +8,7 @@
     "pages/music/music",
     "pages/musicPlay/musicPlay"
   ],
+  "requiredBackgroundModes": ["audio"],
   "tabBar":{
     "list":[
       {
