@@ -5,13 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+      song:[]
   },
   click: function(e){
-    this.setData({
+    var th  = this
+    th.setData({
       a: e.detail.value
     })
-    console.log(this.data.a)
+    console.log(th.data.a)
     wx.request({
       url: 'http://192.168.1.3/search',
       method:'post',
@@ -19,10 +20,14 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        'a': this.data.a,
+        'a': th.data.a,
       },
       success: function(res){
-        console.log(res.data.status)
+        console.log(res.data)
+        th.setData({
+          song: res.data
+        })
+        console.log(th.data.song)
       }
     })
   },
