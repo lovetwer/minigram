@@ -14,7 +14,7 @@ Page({
     })
     console.log(th.data.a)
     wx.request({
-      url: 'http://192.168.1.3/search',
+      url: 'http://www.yunmic.club/search',
       method:'post',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -25,12 +25,20 @@ Page({
       success: function(res){
         console.log(res.data)
         th.setData({
-          song: res.data
+          song: res.data.song
         })
         console.log(th.data.song)
       }
     })
   },
+
+    toSmor: function(e){
+      var name =e.currentTarget.dataset.name
+      var singer =e.currentTarget.dataset.singer
+      wx.navigateTo({
+        url: '../play/play?name='+name+'&singer='+singer,
+      })
+    },
   /**
    * 生命周期函数--监听页面加载
    */
