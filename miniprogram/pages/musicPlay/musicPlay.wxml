@@ -6,7 +6,12 @@
   <view class="progress">
     <view>{{currentTime}}</view>
     <view>
-      <slider class="slider" block-size="{{16}}" />
+      <slider
+        class="slider"
+        block-size="{{16}}"
+        value="{{currentTimeSec}}"
+        max="{{durationSec}}"
+        bindchange="handleChangeSlider" />
     </view>
     <view>{{duration}}</view>
   </view>

@@ -11,7 +11,9 @@ Page({
     musicObj:null,
     playStatus:false,
     duration:0,
-    currentTime:0
+    currentTime:0,
+    currentTimeSec:0,
+    durationSec:0
   },
   innerAudioContext:null,
   /**
@@ -32,22 +34,38 @@ Page({
       this.innerAudioContext.autoplay = true
       this.innerAudioContext.onPlay(() => {
         console.log('开始播放')
-        this.innerAudioContext.onTimeUpdate(()=>{
-          let currentTime = moment(this.innerAudioContext.currentTime * 1000).format('mm:ss')
-          let duration = moment(this.innerAudioContext.duration * 1000).format('mm:ss')
-          console.log('duration',duration)
-          this.setData({
-            currentTime,
-            duration,
-          })
-        })
         this.setData({
-          // currentTime,
-          // duration,
           playStatus:true
         })
+        this.onAudioTimeUpdate()
       })
     })
+  },
+  onAudioTimeUpdate(){
+    console.log('onAudioTimeUpdate')
+    this.innerAudioContext.onTimeUpdate(()=>{
+      let currentTimeSec = this.innerAudioContext.currentTime
+      let durationSec = this.innerAudioContext.duration
+      let currentTime = moment(currentTimeSec * 1000).format('mm:ss')
+      let duration = moment(durationSec * 1000).format('mm:ss')
+      console.log('duration',duration)
+      this.setData({
+        currentTime,
+        duration,
+        currentTimeSec,
+        durationSec
+      })
+    })
+  },
+  handleChangeSlider({
+    detail:{
+      value
+    }
+  }){
+    console.log(value)
+    this.innerAudioContext.offTimeUpdate()
+    this.innerAudioContext.seek(value)
+    this.onAudioTimeUpdate()
   },
   createAudio(){
 
@@ -82,13 +100,13 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    this.innerAudioContext.destroy()
+    this.handlePause()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function () {this
     this.innerAudioContext.destroy()
   },
 
