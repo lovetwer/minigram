@@ -8,7 +8,7 @@
     <view>
       <slider
         class="slider"
-        block-size="{{16}}"
+        block-size="{{12}}"
         value="{{currentTimeSec}}"
         max="{{durationSec}}"
         bindchange="handleChangeSlider" />
