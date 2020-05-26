@@ -1,2 +1,35 @@
 <!--miniprogram/pages/singer/singer.wxml-->
-<text>666</text>
+<view class="top">
+	<image src="http://192.168.6.104/img/chengdou.jpg" class="headpic"></image>
+	<text class="sname">李兵兵 </text>
+</view>
+
+<view class="space"></view>
+
+<view class="body">
+
+	<view class="botop">
+		<image src="http://192.168.6.104/img/yinle.png" class="ico"></image>
+		<text class="sim">Ta的单曲</text>
+		<text class="more">更多</text>
+	</view>
+
+  
+
+	<view class="simSong">
+		<view wx:for="{{song}}" wx:for-item="song" class="songmore" class="simCenter">
+			<text>{{song.name}}</text>
+		</view>
+</view>
+	</view>
+
+	<view class="down">
+		<view class="my">
+		<image src="http://192.168.6.104/img/gerenxinxi.png" class="person"></image>
+      <text class="myself">个人信息</text>
+    </view>
+		<view class="info">
+				<text>{{songer.information}} </text>		
+	</view>
+  </view>
+	<!-- -->

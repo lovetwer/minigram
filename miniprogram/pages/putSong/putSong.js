@@ -19,7 +19,7 @@ Page({
     mic.play();
     var th = this
     wx.request({
-      url: 'http://www.yunmic.club/FindMic',
+      url: 'http://192.168.6.104/FindMic',
       data: { 'song':''
       },
       method:'get',

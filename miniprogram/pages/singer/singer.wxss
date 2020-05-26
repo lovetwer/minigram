@@ -1,1 +1,95 @@
 /* miniprogram/pages/singer/singer.wxss */
+page{
+  width: 100%;
+  height: 100%;
+}
+.top{
+width: 100%;
+height: 250rpx;
+background-color: burlywood;
+}
+.headpic{
+  float: left;
+  margin-top: 10%;
+  margin-left: 4%;
+    height:90px;
+    width: 90px;
+    border-radius: 45px;
+}
+.sname{
+  float: left;
+  margin-left: 5%;
+  margin-top: 22%;
+  font-size: 50rpx;
+  color: cornsilk;
+}
+.space{
+  padding-top: 4%;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: crimson;
+}
+.body{
+  height: 25%;
+}
+.botop{
+  height: 20%;
+}
+.ico{
+  float: left;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+.sim{
+  color: darkgrey;
+  float: left;
+  margin-top: 3%;
+  margin-left: 1%;
+}
+.more{
+  font-size: 25rpx;
+  float: right;
+  margin-right: 5%;
+  margin-top: 3%;
+  border-radius: 40rpx;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+}
+.simSong{
+  padding: 4%;
+  margin-left: 4%;
+  
+}
+.simCenter{
+  padding:2%;
+}
+.down{
+  padding-top: 2%;
+  height: 30%;
+}
+.my{
+  height: 30rpx;
+}
+.myself{
+  float: left;
+  color: darkgrey;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+.info{
+  font-size: 25rpx;
+  color: dimgrey;
+  height: auto;
+  width: 80%;
+  margin-left: 10%;
+  padding-top: 8%;
+}
+.person{
+  float: left;
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 2%;
+  margin-left: 2%;
+}

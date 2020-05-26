@@ -5,14 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    song:[],
+    songer:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+     var th = this
+       console.log(options.songer)
+       th.setData({
+         songer: JSON.parse(options.songer)
+       })
+       console.log(th.data.songer.name)
+       wx.request({
+         url: 'http://192.168.6.104/simpSong',
+         data: { 
+           'name':"",
+           'singer':th.data.songer.name
+         },
+         method: 'post',
+         header: {
+          'content-type': 'application/x-www-form-urlencoded'
+         },
+         success: function(res){
+           console.log(res) 
+           th.setData({
+             song:res.data
+           })
+         console.log(th.data.song)
+        }
+       })
   },
 
   /**
