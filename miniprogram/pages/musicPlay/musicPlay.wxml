@@ -29,6 +29,7 @@
       <text class="forward iconfont icon-xiayigexiayishou"></text>
     </view>
   </view>
-
-  
+  <scroll-view class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
+    <view id="line{{index}}" class="lrc {{currentLineNum == index?'active':''}}" wx:for="{{lrcStr}}">{{item.text}}</view>
+  </scroll-view>
 </view>

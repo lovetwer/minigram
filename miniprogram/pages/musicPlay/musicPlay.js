@@ -2,13 +2,17 @@
 wx.cloud.init()
 const db = wx.cloud.database()
 const moment = require('../../libs/moment')
+import {obj as lrcStr} from './content.js'
+var result
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    lrcDir: '[ti:成都][ar:赵雷][al:无法长大][by:0][offset:0][00:01]成都[00:02][00:03]作词：赵雷[00:03]作曲：赵雷[00:05]编曲：赵雷,喜子[00:09]演唱：赵雷[00:12][00:17]让我掉下眼泪的[00:21]不止昨夜的酒[00:25]让我依依不舍的[00:29]不止你的温柔[00:33]余路还要走多久[00:37]你攥着我的手[00:41]让我感到为难的[00:45]是挣扎的自由[00:49][00:51]分别总是在九月[00:55]回忆是思念的愁[00:59]深秋嫩绿的垂柳 [01:03]亲吻着我额头[01:07]在那座阴雨的小城里[01:11]我从未忘记你[01:15]成都 带不走的 只有你[01:21][01:22]和我在成都的街头走一走[01:31]直到所有的灯都熄灭了也不停留[01:38]你会挽着我的衣袖[01:42]我会把手揣进裤兜[01:46]走到玉林路的尽头[01:50]坐在小酒馆的门口[01:55][02:30]分别总是在九月[02:34]回忆是思念的愁[02:38]深秋嫩绿的垂柳[02:42]亲吻着我额头[02:46]在那座阴雨的小城里[02:50]我从未忘记你[02:53]成都 带不走的 只有你[03:00][03:02]和我在成都的街头走一走[03:10]直到所有的灯都熄灭了也不停留[03:18]你会挽着我的衣袖[03:21]我会把手揣进裤兜[03:25]走到玉林路的尽头[03:29]坐在小酒馆的门口[03:36][03:38]和我在成都的街头走一走[03:46]直到所有的灯都熄灭了也不停留[03:54]和我在成都的街头走一走[04:02]直到所有的灯都熄灭了也不停留[04:10]你会挽着我的衣袖[04:13]我会把手揣进裤兜[04:17]走到玉林路的尽头[04:21]坐在(走过)小酒馆的门口[04:27][04:36]和我在成都的街头走一走[04:44]直到所有的灯都熄灭了也不停留[04:51]',
+    lrcStr:lrcStr,
+    storyContent:'',
+    lrcDir: '[00:00.00]张紫豪 - 可不可以\n[00:02.00]词：刘伟锋\n[00:03.00]曲：刘伟锋\n[00:04.00]编曲：刘伟锋\n[00:05.00]录制混缩：巨人先生\n[00:07.00]出品：西亚斯音频工作室\n[00:16.01]说好带你流浪\n[00:19.59]而我却半路返航\n[00:23.10]坠落自责的海洋',
     musicObj:null,
     playStatus:false,
     duration:'00:00',
@@ -20,9 +24,23 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  formatLrcStr(){
+    console.log(moment().valueOf())
+    let lines = lrcStr
+    let arr = lines.map(item=>{
+      return {
+        time:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf())==0?0:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf()) / 1000,
+        title:item.text
+      }
+    })
+    console.log(arr)
+    return arr
+  },
   onLoad: function (options) {
     this.innerAudioContext = wx.createInnerAudioContext()
     this.getMusicById(options.id)
+    // this.handleLyric()
+    // this.formatLrcStr()
   },
   async getMusicById(id){
     let res = await db.collection('music').doc(id).get()
@@ -60,7 +78,7 @@ Page({
       let durationSec = this.innerAudioContext.duration
       let currentTime = moment(currentTimeSec * 1000).format('mm:ss')
       let duration = moment(durationSec * 1000).format('mm:ss')
-      console.log('duration',duration)
+      this.handleLyric(currentTimeSec * 1000)
       this.setData({
         currentTime,
         duration,
@@ -68,6 +86,37 @@ Page({
         durationSec
       })
     })
+  },
+  handleLyric: function (currentTime) {
+    let arr = this.data.lrcStr, lineNum
+    let lines = arr.map(item=>{
+      return {
+        time:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf())==0?0:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf()),
+        title:item.text
+      }
+    })
+    for (let i = 0; i < lines.length; i++) {
+      if (i < lines.length - 1) {
+        let time1 = lines[i].time, time2 = lines[i + 1].time
+        if (currentTime > time1 && currentTime < time2) {
+          lineNum = i - 1
+          break;
+        }
+      } else {
+        lineNum = lines.length - 2
+      }
+    }
+    this.setData({
+      currentLineNum: lineNum,
+      currentText: lines[lineNum + 1] && lines[lineNum + 1].text
+    })
+
+    let toLineNum = lineNum - 3
+    if (lineNum > 3 && toLineNum != this.data.toLineNum) {
+      this.setData({
+        toLineNum: toLineNum
+      })
+    }
   },
   handleChangeSlider({
     detail:{
@@ -80,11 +129,52 @@ Page({
       this.innerAudioContext.onSeeked(()=>{
         console.log(this.innerAudioContext.duration)
       })
-    
-    // this.innerAudioContext.onSeeked(()=>{
-    //   // console.log(this.innerAudioContext.currentTime)
-    //   this.innerAudioContext.offSeeked()
-    // })
+  },
+  //去除空白
+  sliceNull: function (lrc) {
+    var result = []
+    for (var i = 0; i < lrc.length; i++) {
+      if (lrc[i][1] == "") {
+      } else {
+        result.push(lrc[i]);
+      }
+    }
+    return result
+  },
+  playFun:function(){
+    this.setData({
+       storyContent: this.sliceNull(this.parseLyric(this.data.lrcDir))
+     })
+     console.log('storyContent',this.data.storyContent)
+  },
+  parseLyric: function (text) {
+    result = [];
+    var lines = text.split('\n'), //切割每一行
+     pattern = /\[\d{2}:\d{2}.\d{2}\]/g //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
+    //去掉不含时间的行
+    while (!pattern.test(lines[0])) {
+      lines = lines.slice(1);
+    };
+    //上面用'\n'生成数组时，结果中最后一个为空元素，这里将去掉
+    lines[lines.length - 1].length === 0 && lines.pop();
+    lines.forEach(function (v /*数组元素值*/, i /*元素索引*/, a /*数组本身*/) {
+      //提取出时间[xx:xx.xx]
+      var time = v.match(pattern),
+        //提取歌词
+        value = v.replace(pattern, '');
+      // 因为一行里面可能有多个时间，所以time有可能是[xx:xx.xx][xx:xx.xx][xx:xx.xx]的形式，需要进一步分隔
+      time.forEach(function (v1, i1, a1) {
+        //去掉时间里的中括号得到xx:xx.xx
+        var t = v1.slice(1, -1).split(':');
+        //将结果压入最终数组
+        result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
+      });
+    });
+    //最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词
+    result.sort(function (a, b) {
+      return a[0] - b[0];
+    });
+    return result;
   },
   createAudio(){
 

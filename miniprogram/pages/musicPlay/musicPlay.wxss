@@ -26,3 +26,13 @@
 .control .play,.stop,.back,.forward{
   font-size: 60rpx;
 }
+
+.lrc-wrapper{
+  height: 300rpx;
+  text-align: center;
+  margin-top: 40rpx;
+}
+.lrc.active{
+  color: red;
+  font-weight: 900;
+}
