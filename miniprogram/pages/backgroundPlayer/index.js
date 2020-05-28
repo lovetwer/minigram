@@ -23,7 +23,6 @@ Page({
     currentLineNum: 0,
     toLineNum: -1,
   },
-  innerAudioContext:null,
   /**
    * 生命周期函数--监听页面加载
    */
@@ -53,7 +52,6 @@ Page({
     return arr
   },
   onLoad: function (options) {
-    this.innerAudioContext = wx.createInnerAudioContext()
     this.getMusicById(options.id)
   },
   async getMusicById(id){
@@ -63,12 +61,12 @@ Page({
       musicObj:res.data
     },()=>{
       console.log('setData')
-      backgroundAudioManager.title = '此时此刻'
-      backgroundAudioManager.epname = '此时此刻'
-      backgroundAudioManager.singer = '许巍'
+      backgroundAudioManager.title = res.data.title
+      backgroundAudioManager.epname = res.data.title
+      backgroundAudioManager.singer = res.data.singer
       backgroundAudioManager.coverImgUrl = res.data.coverImg
       backgroundAudioManager.src = res.data.src
-      this.innerAudioContext.onPlay(() => {
+      backgroundAudioManager.onPlay(() => {
         console.log('开始播放')
         this.setData({
           playStatus:true
@@ -79,7 +77,7 @@ Page({
     })
   },
   onAudioPalyEnded(){
-    this.innerAudioContext.onEnded(()=>{
+    backgroundAudioManager.onEnded(()=>{
       console.log('onEnded')
       this.setData({
         playStatus:false,
@@ -92,9 +90,9 @@ Page({
   },
   onAudioTimeUpdate(){
     console.log('onAudioTimeUpdate')
-    this.innerAudioContext.onTimeUpdate(()=>{
-      let currentTimeSec = this.innerAudioContext.currentTime
-      let durationSec = this.innerAudioContext.duration
+    backgroundAudioManager.onTimeUpdate(()=>{
+      let currentTimeSec = backgroundAudioManager.currentTime
+      let durationSec = backgroundAudioManager.duration
       let currentTime = moment(currentTimeSec * 1000).format('mm:ss')
       let duration = moment(durationSec * 1000).format('mm:ss')
       this.handleLyric(currentTimeSec * 1000)
@@ -149,9 +147,9 @@ Page({
       })
       // this.handleLyric(value * 1000)
     }
-    this.innerAudioContext.seek(value)
-    this.innerAudioContext.onSeeked(()=>{
-      console.log(this.innerAudioContext.duration)
+    backgroundAudioManager.seek(value)
+    backgroundAudioManager.onSeeked(()=>{
+      console.log(backgroundAudioManager.duration)
     })
   },
 
@@ -162,13 +160,13 @@ Page({
     this.setData({
       playStatus:true
     })
-    this.innerAudioContext.play()
+    backgroundAudioManager.play()
   },
   handlePause(){
     this.setData({
       playStatus:false
     })
-    this.innerAudioContext.pause()
+    backgroundAudioManager.pause()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -221,8 +219,8 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {this
-    this.innerAudioContext.destroy()
+  onUnload: function () {
+
   },
 
   /**

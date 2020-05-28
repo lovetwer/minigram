@@ -32,7 +32,7 @@ Page({
     }
   }){
     wx.navigateTo({
-      url: `/pages/musicPlay/musicPlay?id=${id}`,
+      url: `/pages/backgroundPlayer/index?id=${id}`,
     })
   },
   /**
