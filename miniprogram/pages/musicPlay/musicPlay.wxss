@@ -9,7 +9,6 @@
 
 .progress{
   display:flex;
-  margin-top: 40rpx;
   align-items: center;
 }
 .progress .slider{
@@ -26,11 +25,22 @@
 .control .play,.stop,.back,.forward{
   font-size: 60rpx;
 }
-
+.head{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
 .lrc-wrapper{
-  height: 300rpx;
+  width: 100%;
+  height: 500rpx;
   text-align: center;
-  margin-top: 40rpx;
+  padding-bottom: 20rpx;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 0;
 }
 .lrc.active{
   color: red;

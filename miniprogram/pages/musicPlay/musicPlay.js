@@ -10,6 +10,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    animationData:{},
+    animationData2:{},
+    isShowHead:true,
     lrcStr:lrcStr,
     storyContent:'',
     lrcDir: '[00:00.00]张紫豪 - 可不可以\n[00:02.00]词：刘伟锋\n[00:03.00]曲：刘伟锋\n[00:04.00]编曲：刘伟锋\n[00:05.00]录制混缩：巨人先生\n[00:07.00]出品：西亚斯音频工作室\n[00:16.01]说好带你流浪\n[00:19.59]而我却半路返航\n[00:23.10]坠落自责的海洋',
@@ -18,19 +21,36 @@ Page({
     duration:'00:00',
     currentTime:'00:00',
     currentTimeSec:0,
-    durationSec:0
+    durationSec:0,
+    currentLineNum: 0,
+    toLineNum: -1,
   },
   innerAudioContext:null,
   /**
    * 生命周期函数--监听页面加载
    */
+  handleToggleHead(){
+    console.log(111)
+    let isShowHead = !this.data.isShowHead
+    if(isShowHead) {
+      this.show()
+      this.lrcHide()
+    }else{
+      this.hide()
+      this.lrcShow()
+    }
+    this.setData({
+      isShowHead
+    })
+    console.log(isShowHead)
+  },
   formatLrcStr(){
     console.log(moment().valueOf())
     let lines = lrcStr
     let arr = lines.map(item=>{
       return {
-        time:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf())==0?0:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf()) / 1000,
-        title:item.text
+        time:moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf(),
+        text:item.text
       }
     })
     console.log(arr)
@@ -39,8 +59,6 @@ Page({
   onLoad: function (options) {
     this.innerAudioContext = wx.createInnerAudioContext()
     this.getMusicById(options.id)
-    // this.handleLyric()
-    // this.formatLrcStr()
   },
   async getMusicById(id){
     let res = await db.collection('music').doc(id).get()
@@ -68,6 +86,8 @@ Page({
         playStatus:false,
         currentTime:"00:00",
         currentTimeSec:0,
+        currentLineNum: 0,
+        toLineNum: -1,
       })
     })
   },
@@ -91,8 +111,8 @@ Page({
     let arr = this.data.lrcStr, lineNum
     let lines = arr.map(item=>{
       return {
-        time:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf())==0?0:(moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf()),
-        title:item.text
+        time:moment(`2020-05-27 00:${item.time}`).valueOf() - moment(`2020-05-27 00:00:00`).valueOf(),
+        text:item.text
       }
     })
     for (let i = 0; i < lines.length; i++) {
@@ -111,8 +131,8 @@ Page({
       currentText: lines[lineNum + 1] && lines[lineNum + 1].text
     })
 
-    let toLineNum = lineNum - 3
-    if (lineNum > 3 && toLineNum != this.data.toLineNum) {
+    let toLineNum = lineNum - 5
+    if (lineNum > 5 && toLineNum != this.data.toLineNum) {
       this.setData({
         toLineNum: toLineNum
       })
@@ -124,58 +144,18 @@ Page({
     }
   }){
     console.log(value)
-
-      this.innerAudioContext.seek(value)
-      this.innerAudioContext.onSeeked(()=>{
-        console.log(this.innerAudioContext.duration)
+    if(!this.data.playStatus){
+      this.setData({
+        currentTime:moment(value * 1000).format('mm:ss')
       })
-  },
-  //去除空白
-  sliceNull: function (lrc) {
-    var result = []
-    for (var i = 0; i < lrc.length; i++) {
-      if (lrc[i][1] == "") {
-      } else {
-        result.push(lrc[i]);
-      }
+      // this.handleLyric(value * 1000)
     }
-    return result
+    this.innerAudioContext.seek(value)
+    this.innerAudioContext.onSeeked(()=>{
+      console.log(this.innerAudioContext.duration)
+    })
   },
-  playFun:function(){
-    this.setData({
-       storyContent: this.sliceNull(this.parseLyric(this.data.lrcDir))
-     })
-     console.log('storyContent',this.data.storyContent)
-  },
-  parseLyric: function (text) {
-    result = [];
-    var lines = text.split('\n'), //切割每一行
-     pattern = /\[\d{2}:\d{2}.\d{2}\]/g //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
-    //去掉不含时间的行
-    while (!pattern.test(lines[0])) {
-      lines = lines.slice(1);
-    };
-    //上面用'\n'生成数组时，结果中最后一个为空元素，这里将去掉
-    lines[lines.length - 1].length === 0 && lines.pop();
-    lines.forEach(function (v /*数组元素值*/, i /*元素索引*/, a /*数组本身*/) {
-      //提取出时间[xx:xx.xx]
-      var time = v.match(pattern),
-        //提取歌词
-        value = v.replace(pattern, '');
-      // 因为一行里面可能有多个时间，所以time有可能是[xx:xx.xx][xx:xx.xx][xx:xx.xx]的形式，需要进一步分隔
-      time.forEach(function (v1, i1, a1) {
-        //去掉时间里的中括号得到xx:xx.xx
-        var t = v1.slice(1, -1).split(':');
-        //将结果压入最终数组
-        result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
-      });
-    });
-    //最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词
-    result.sort(function (a, b) {
-      return a[0] - b[0];
-    });
-    return result;
-  },
+
   createAudio(){
 
   },
@@ -202,9 +182,36 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
   },
-
+  lrcShow(){{
+    this.animation.opacity(1).step()
+    this.setData({
+      animationData2:this.animation.export()
+    })
+  }},
+  lrcHide(){
+    this.animation.opacity(0).step()
+    this.setData({
+      animationData2:this.animation.export()
+    })
+  },
+  show(){
+    this.animation.opacity(1).step()
+    this.setData({
+      animationData:this.animation.export()
+    })
+  },
+  hide(){
+    this.animation.opacity(0).step()
+    this.setData({
+      animationData:this.animation.export()
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
