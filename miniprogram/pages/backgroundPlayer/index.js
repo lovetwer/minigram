@@ -1,9 +1,9 @@
-// miniprogram/pages/musicPlay/musicPlay.js
+// miniprogram/pages/backgroundPlayer/index.js
 wx.cloud.init()
+import {obj as lrcStr} from './content.js'
 const db = wx.cloud.database()
 const moment = require('../../libs/moment')
-import {obj as lrcStr} from './content.js'
-
+const backgroundAudioManager = wx.getBackgroundAudioManager()
 Page({
 
   /**
@@ -14,8 +14,6 @@ Page({
     animationData2:{},
     isShowHead:true,
     lrcStr:lrcStr,
-    storyContent:'',
-    lrcDir: '[00:00.00]张紫豪 - 可不可以\n[00:02.00]词：刘伟锋\n[00:03.00]曲：刘伟锋\n[00:04.00]编曲：刘伟锋\n[00:05.00]录制混缩：巨人先生\n[00:07.00]出品：西亚斯音频工作室\n[00:16.01]说好带你流浪\n[00:19.59]而我却半路返航\n[00:23.10]坠落自责的海洋',
     musicObj:null,
     playStatus:false,
     duration:'00:00',
@@ -65,8 +63,11 @@ Page({
       musicObj:res.data
     },()=>{
       console.log('setData')
-      this.innerAudioContext.src = res.data.src
-      this.innerAudioContext.autoplay = true
+      backgroundAudioManager.title = '此时此刻'
+      backgroundAudioManager.epname = '此时此刻'
+      backgroundAudioManager.singer = '许巍'
+      backgroundAudioManager.coverImgUrl = res.data.coverImg
+      backgroundAudioManager.src = res.data.src
       this.innerAudioContext.onPlay(() => {
         console.log('开始播放')
         this.setData({

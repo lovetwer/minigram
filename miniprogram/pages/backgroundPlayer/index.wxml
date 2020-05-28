@@ -1,0 +1,39 @@
+<!--miniprogram/pages/backgroundPlayer/index.wxml-->
+<view class="container">
+  <view style="width:100%;height:550rpx;position:relative;">
+    <view animation="{{animationData}}" class="head" style="z-index:{{isShowHead?9:0}}" >
+      <image class="img" src="{{musicObj.coverImg}}"></image>
+      <view style="padding:20rpx 0;text-align:center;" catchtap="handleToggleHead">{{currentText}}</view>
+    </view>
+    <scroll-view style="z-index:{{isShowHead?0:9}}" animation="{{animationData2}}" catchtap="handleToggleHead" class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
+      <view id="line{{toLineNum==-1?toLineNum:index}}" class="lrc {{currentLineNum == index?'active':''}}" wx:for="{{lrcStr}}">{{item.text}}</view>
+    </scroll-view>
+  </view>
+  <view class="progress">
+    <view>{{currentTime}}</view>
+    <view>
+      <slider
+        class="slider"
+        block-size="{{12}}"
+        value="{{currentTimeSec}}"
+        max="{{durationSec}}"
+        bindchange="handleChangeSlider" />
+    </view>
+    <view>{{duration}}</view>
+  </view>
+
+  <view class="control">
+    <view class="left">
+      <text class="back iconfont icon-shangyishoushangyige"></text>
+    </view>
+    <view class="center">
+      <text class="stop iconfont icon-zanting_huaban" catchtap="handlePause" wx:if="{{playStatus}}"></text>
+      <text class="play iconfont icon-iconset0429" catchtap="handlePlay" wx:else ></text>
+    </view>
+
+    <view class="right">
+      <text class="forward iconfont icon-xiayigexiayishou"></text>
+    </view>
+  </view>
+</view>
+
