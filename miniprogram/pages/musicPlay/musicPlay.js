@@ -30,7 +30,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   handleToggleHead(){
-    console.log(111)
     let isShowHead = !this.data.isShowHead
     if(isShowHead) {
       this.show()
@@ -42,7 +41,6 @@ Page({
     this.setData({
       isShowHead
     })
-    console.log(isShowHead)
   },
   formatLrcStr(){
     console.log(moment().valueOf())
@@ -119,16 +117,16 @@ Page({
       if (i < lines.length - 1) {
         let time1 = lines[i].time, time2 = lines[i + 1].time
         if (currentTime > time1 && currentTime < time2) {
-          lineNum = i - 1
+          lineNum = i
           break;
         }
       } else {
-        lineNum = lines.length - 2
+        lineNum = lines.length - 1
       }
     }
     this.setData({
       currentLineNum: lineNum,
-      currentText: lines[lineNum + 1] && lines[lineNum + 1].text
+      currentText: lines[lineNum] && lines[lineNum].text
     })
 
     let toLineNum = lineNum - 5
