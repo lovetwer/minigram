@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-      song:[]
+      song:[],
+      songer:{}
   },
   click: function(e){
     var th  = this
@@ -14,7 +15,7 @@ Page({
     })
     console.log(th.data.a)
     wx.request({
-      url: 'http://192.168.1.3/search',
+      url: 'http://192.168.6.104/search',
       method:'post',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -25,12 +26,42 @@ Page({
       success: function(res){
         console.log(res.data)
         th.setData({
-          song: res.data
+          song: res.data.song
         })
+      
         console.log(th.data.song)
       }
     })
   },
+    toSmor: function(e){
+      var name =e.currentTarget.dataset.name
+      var singerName =e.currentTarget.dataset.singer
+      var th =this
+      if(name!=null){
+      wx.navigateTo({
+        url: '../play/play?name='+name,
+      })
+    }else{
+      wx.request({
+        url: 'http://192.168.6.104/singerMore',
+              data: {
+                'name': singerName,
+              },
+              method: 'post',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              success: function (res) { 
+                th.setData({
+                  songer: res.data
+                })           
+                wx.navigateTo({
+                  url: '../singer/singer?songer='+JSON.stringify(th.data.songer)
+                })
+              }  
+             }) 
+             }  
+    },
   /**
    * 生命周期函数--监听页面加载
    */

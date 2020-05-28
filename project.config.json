@@ -89,6 +89,13 @@
 					"id": -1,
 					"name": "pages/musicPlay/musicPlay",
 					"pathName": "pages/musicPlay/musicPlay",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/singer/singer",
+					"pathName": "pages/singer/singer",
 					"scene": null
 				}
 			]

@@ -27,7 +27,7 @@ Page({
         console.log(fileName)
               var _this = this;
               wx.downloadFile({
-                url: 'http://www.yunmic.club/download?fileName=' + fileName,
+                url: 'http://192.168.6.104/download?fileName=' + fileName,
                 success: function(res) {
                   var tempFilePath = res.tempFilePath
                   //console.log('临时文件地址是：' + tempFilePath)
@@ -64,7 +64,7 @@ Page({
             var th = this
             console.log(id + name + singer + micPic)
             wx.request({
-              url: 'http://www.yunmic.club/songMore',
+              url: 'http://192.168.6.104/songMore',
               data: {
                 'id': id,
                 'name': name,
@@ -82,7 +82,7 @@ Page({
               }
             }),
             wx.request({
-              url: 'http://www.yunmic.club/loveSongMore',
+              url: 'http://192.168.6.104/loveSongMore',
               data: {
                 'name': name,
               },
@@ -115,7 +115,7 @@ collect: function(e){
   console.log(name)
   var that = this
   wx.request({
-    url: 'http://www.yunmic.club/collect',
+    url: 'http://192.168.6.104/collect',
     method : 'post',
     data: {
       'name': name
