@@ -60,7 +60,7 @@ Page({
             let scr = th.data.hp+'/img/'+res.data
             if (res.statusCode === 200) {
                 th.setData({
-                  picSrc:JSON.parse(scr)
+                  picSrc:scr
                 })
                 console.log(th.data.picSrc)
             }
