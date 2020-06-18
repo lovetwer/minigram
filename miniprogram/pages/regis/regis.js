@@ -56,11 +56,11 @@ Page({
             "Content-Type": "multipart/form-data"
           },
           success: function(res) {
-            //let scr = th.data.hp+'/img/'+res.data
-            let scr = res.data
+            console.log('res-------------'+res.data)
+            let scr = th.data.hp+'/img/'+res.data
             if (res.statusCode === 200) {
                 th.setData({
-                  picSrc:scr
+                  picSrc:JSON.parse(scr)
                 })
                 console.log(th.data.picSrc)
             }
