@@ -116,6 +116,7 @@ Page({
     for (let i = 0; i < lines.length; i++) {
       if (i < lines.length - 1) {
         let time1 = lines[i].time, time2 = lines[i + 1].time
+        console.log("time1+++++"+time1)
         if (currentTime > time1 && currentTime < time2) {
           lineNum = i
           break;

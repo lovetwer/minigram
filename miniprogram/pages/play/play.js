@@ -1,75 +1,151 @@
 // miniprogram/pages/paly/play.js
+const app = getApp();
 const mic = wx.createInnerAudioContext()
+const moment = require('../../libs/moment')
 Page({
 
       /**
        * 页面的初始数据
        */
       data: {
-       show:'none',
-       showOut:''
+        hp:app.globalData.hp,
+        currentTime:0,
+        duration:0,
+        lrcFile: '',
+        lrc:[],
+        currentLineNum: 0,
+        toLineNum: -1,
+       showOut:'',
+       play:true,
+       paused:false,
+       playSatus: "",
+       comm:'',
+       song:'',
+       songName:"",
+       comment:''
       },
 
       /**
        * 生命周期函数--监听页面加载
        */
-      /* var myAudio =e.currentTarget.dataset.id
-         console.log(myAudio)
-         this.audioCtx = wx.createAudioContext(myAudio);
-         console.log(this.audioCtx);
-         this.audioCtx .play();
-       },
-       /**
-        * 生命周期函数--监听页面加载
-        */
-      dow: function (e) {
-        var fileName = e.currentTarget.dataset.file
-        console.log(fileName)
-              var _this = this;
-              wx.downloadFile({
-                url: 'http://192.168.6.104/download?fileName=' + fileName,
-                success: function(res) {
-                  var tempFilePath = res.tempFilePath
-                  //console.log('临时文件地址是：' + tempFilePath)
-                  wx.saveFile({
-                    tempFilePath: tempFilePath,
-                    success: function(res) {
-                        var saveFilePath = res.savedFilePath   
-                    },//可以将saveFilePath写入到页面数据中
-                    fail: function(res) {},
-                    complete: function(res) {
-                      console.log('complete后的res数据：')
-                    },
-                  }) //,
-                },
-                fail: function(res) {
-                  wx.showModal({
-                    title: '下载失败'
-                  })
-                },
-              })
-          
-      },
+
+      
           playing: function (e) {
+            console.log("我再点击")
+            var th= this
             var src = e.currentTarget.dataset.src;
             mic.src = src;
-            console.log(mic);
-            mic.play();
-          },
+            wx.request({
+              url: th.data.hp+'/lrc',
+              data: {
+                'fileName': th.data.hp+th.data.lrcFile,
+              },
+              method: 'post',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              success: function (res) {
+                
+                th.setData({
+                 lrc: res.data
+                 
+                })
+              }
+              }),
+              console.log("对不对————"+th.data.playSatus)
+            if(th.data.playSatus){
+              mic.pause();
+              th.setData({
+                playSatus:false
+              })
+            }else{
+              mic.play();
+            //mic.autoplay = true    
+            mic.onPlay(() => {
+              console.log('开始播放')
+              th.setData({
+                play : false,
+                paused: true,
+                playSatus: true
+              })
+             
+              th.onAudioTimeUpdate()
+            })
+      }},
+      onAudioTimeUpdate() {
+        mic.onTimeUpdate(()=>{
+          var th = this
+        let currentT= mic.currentTime
+        let duration = mic.duration.toFixed(2)*1000
+        let currentTime = currentT.toFixed(2)*1000
+        this.setData({
+          currentTime,
+          duration
+        })
+        let lineNum = "";
+        let lrc = th.data.lrc
+        for (let i = 0; i < lrc.length; i++) {
+         
+          if (i < lrc.length - 1) {
+            let time1 = lrc[i].time, time2 = lrc[i + 1].time
+            if (currentTime > time1 && currentTime < time2) {
+              lineNum = i
+              break;
+            }
+          } else {
+            lineNum = lrc.length - 1
+          }
+        }
+        console.log("lrc[lineNum].text---"+lrc[lineNum].text)
+        th.setData({
+          currentLineNum: lineNum,
+          currentText: lrc[lineNum] && lrc[lineNum].text
+        })
+        let toLineNum = lineNum - 2
+        if (lineNum > 2 && toLineNum != th.data.toLineNum) {
+          th.setData({
+            toLineNum: toLineNum
+          })
+        }
+      })
+  },
+  comment: function(e){
+    var th  = this
+    th.setData({
+      comm: e.detail.value
+    })
+  },
+  push: function() {
+    var th = this
+    var  header = getApp().globalData.header;
+    console.log("header---------"+header.Cookie)
+    wx.request({
+      url: th.data.hp+'/comment',
+      data: {
+        'comm':th.data.comm,
+        'sid': header.Cookie,
+        'song': th.data.songName
+      },
+      method: 'post',
+      header: header, 
+      success: function (res) {
+        th.setData({
+          comment:res.data
+        })
+      }
+    })
+  },
+ 
           onLoad: function (options) {
-            var id = options.id;
             var name = options.name;
             var singer = options.singer;
-            var micPic = options.micPic;
             var th = this
-            console.log(id + name + singer + micPic)
+            console.log(name + singer )
             wx.request({
-              url: 'http://192.168.6.104/songMore',
+              url: th.data.hp+'/songMore',
               data: {
-                'id': id,
                 'name': name,
                 'singer': singer,
-                'micPic': micPic,
               },
               method: 'post',
               header: {
@@ -77,66 +153,61 @@ Page({
               },
               success: function (res) {
                 th.setData({
-                  song: res.data,
+                  song:res.data,
+                  songName: res.data.name,
+                  lrcFile: res.data.lrc
                 })
+                console.log("??????????"+th.data.songName) 
               }
             }),
+           console.log("??????????"+th.data.songName) 
             wx.request({
-              url: 'http://192.168.6.104/loveSongMore',
+              url: th.data.hp+'/commentMore',
               data: {
-                'name': name,
+                'song': name
               },
               method: 'post',
               header: {
                 'content-type': 'application/x-www-form-urlencoded'
               },
               success: function (res) {
-                if(res.data.song!=null){
-                  th.setData({
-                    show:true
-                   
-                  })
-                  console.log('000000000000000000')
-                }
-                else{
-                  th.setData({
-                    show:false
-                   
-                  })
-                  console.log('11111111111')
-                }
+                console.log("res.data???????"+res.data)
+               th.setData({
+                comment:res.data
+              })
               }
             })
+            console.log("th.data.comment======"+th.data.comment)
           },
-collect: function(e){
-  var th = this
+// collect: function(e){
+//   var th = this
   
-  var name = e.currentTarget.dataset.name
-  console.log(name)
-  var that = this
-  wx.request({
-    url: 'http://192.168.6.104/collect',
-    method : 'post',
-    data: {
-      'name': name
-    },
-    header: {
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    success: function (res) {
-      console.log(res.data)
-      if(res.data.status==0){
-        th.setData({
-          show:false
-        })
-      }else{
-        th.setData({
-          show:true
-        })
-      }
-    }
-  })
-},
+//   var name = e.currentTarget.dataset.name
+//   console.log(name)
+//   var that = this
+//   wx.request({
+//     url: 'http://32jv006215.wicp.vip/collect',
+//     method : 'post',
+//     data: {
+//       'name': name
+//     },
+//     header: {
+//       'content-type': 'application/x-www-form-urlencoded'
+//     },
+//     success: function (res) {
+//       console.log(res.data)
+//       if(res.data.status==0){
+//         th.setData({
+//           show:false
+//         })
+//       }else{
+//         th.setData({
+//           show:true
+//         })
+//       }
+//     }
+//   })
+// },
           /**
            * 生命周期函数--监听页面初次渲染完成
            */

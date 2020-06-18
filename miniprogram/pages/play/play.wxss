@@ -1,59 +1,47 @@
 /* miniprogram/pages/paly/play.wxss */
-page{
-  height: 100%;
-}
-.all {
-  width: 100%;
-  height:100%;
-  background-color:
 
-    #F0F0F0;
-}
-
-.head {
-  width: 100%;
-}
-
-.head1 {
-  width: 100%;
-  
-  display: flex;
-  /*设置显示样式**/
-  align-items: center;
-  /**子view垂直居中*/
-  vertical-align: center;
-  /**垂直居中*/
-  justify-content: center;
-}
-
-.head2 {
+/* .head1 {
   width: 100%;
   display: flex;
-  /*设置显示样式**/
   align-items: center;
-  /**子view垂直居中*/
   vertical-align: center;
-  /**垂直居中*/
   justify-content: center;
-}
+} */
 
-.songName {
+/* .head2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  justify-content: center;
+} */
+
+/* .songName {
   width: 100%;
   margin-top: 5%;
   font-size: 30px;
   text-align: center;
-  /*margin-top: 3%;
-  margin-left: 35%;
-  */
+} */
+page{
+  height:100%;
+}
+.bgpic{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  filter: blur(100rpx);
+  z-index: -999;
 }
 
-.singer {
+/* .singer {
   width: 100%;
   margin-top: 5%;
   text-align: center;
-  /* margin-top: 5%;
-  margin-left: 40%;*/
-}
+} */
 .micImg{
   width: 100%;
   margin-top: 5%;
@@ -66,52 +54,82 @@ page{
   justify-content: center;
 }
 .playPic {
-  /*float: left;
-  margin-left: 20%;
-  margin-top: 5%;*/
-  width: 200px;
+  margin-top: 40rpx;
+  border-radius:5%;
+  position: relative;
+  width: 240px;
   height: 200px;
 }
-
-.lrc {
-  float: left;
-  margin-left: 30%;
-  margin-top: 5%;
-}
-.center{
+.lrc-wrapper{
+  margin-top: 52rpx;
+  font-weight: 50;
+  color: #AAAAAA;
   width: 100%;
-  margin-top: 5%;
+  height:300rpx;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 50rpx
+}
+.lrc.active{
+  color: white;
+  font-weight: 100;
+  font-size: 30rpx;
 
 }
-.down{
-  float: left;
-  margin-left: 40%;
-  width: 30px;
-  height: 30px;
-}
-.love{
-  float: left;
-  margin-top: -2%;
-  width: 50px;
+.playBut{
+  border: 3px solid white;
+  border-style: solid;
+  border-width: 3px;
   height: 50px;
-  display: flex;
-  /*设置显示样式**/
-  align-items: center;
-  /**子view垂直居中*/
-  vertical-align: center;
-  /**垂直居中*/
-  justify-content: center;
+  width: 103rpx;
+  position: absolute;
+  z-index: 1;
+  right: 42%;
+  top: 17%;
+  border-radius: 50%;
+
 }
-.loved{
-  margin-top: -2%;
-  float: left;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  /*设置显示样式**/
+.triangle-right {
+  border-top: 20px solid transparent;
+  border-left: 33px solid white;
+  border-bottom: 20px solid transparent;
+  position: absolute;
+  z-index: 1;
+  right: 44%;
+  top: 18%;
+  
+}
+.paused{
+  border:3px solid white;
+  border-style: solid;
+  height: 60rpx;
+  position: absolute;
+  z-index: 1;
+  right: 51%;
+  top: 18.5%;
+  
+}
+.paused2{
+  border:3px solid white;
+  border-style: solid;
+  height: 60rpx;
+  position: absolute;
+  z-index: 1;
+  right: 46.5%;
+  top: 18.5%;
+}
+
+.comment{
+  color: 
+  #FF6347;
+  margin-left: 8%;
+}
+.progress{
+  display:flex;
   align-items: center;
-  /**子view垂直居中*/
-  vertical-align: center;
-  /**垂直居中*/
-  justify-content: center;
+  margin-left: 18%;
+
+}
+.progress .slider{
+  width:380rpx;
 }

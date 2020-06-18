@@ -1,16 +1,39 @@
 <!--miniprogram/pages/paly/play.wxml-->
-<view class="all">
-	<view class="head">
+  <image src='{{hp+song.micPic}}' class="bgpic"></image>
+	<view class="micImg" data-src='{{hp+song.url}}' bindtap="playing">
+		<view class="playBut"></view>
+		<view class="triangle-right" wx:if="{{!playSatus}}"></view>
+		<view class="paused" wx:if="{{playSatus}}"></view>
+		<view class="paused2" wx:if="{{playSatus}}"></view>
+		<image src="{{hp+song.micPic}}"   class="playPic"  />
+	</view>
+	<scroll-view animation="{{animationData2}}"  class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
+      <view id="line{{toLineNum==-1?toLineNum:index}}" class="lrc {{currentLineNum == index?'active':''}}" wx:for="{{lrc}}">{{item.text}}</view>
+    </scroll-view>
+	<!-- <view class="jg"></view> -->
+	<view class="progress">
+    <view>
+      <slider
+			activeColor="red"
+        class="slider"
+        block-size="{{12}}"
+        value="{{currentTime}}"
+        max="{{duration}}" />
+    </view>
+  </view>
+	<view class="down">
+		<text class="comment">精彩评论</text>
+	</view>
+	<view>
+		<view wx:for="{{comment}}">
+			<text>{{item.commenter}}</text>:<text>{{item.info}}</text><text>{{item.date}}</text>
+		</view>
+	</view>
+	<view>
+	<input bindinput="comment"></input><text	bindtap="push">发送</text>
+	</view>
+	<!-- <view class="head">
 		<view class="head1"><text class="songName">{{song.name}}</text></view>
 		<view class="head2"><text class="singer">{{song.singer}}</text></view>
-	</view>
-	<view class="micImg">
-		<image src="{{song.micPic}}" data-src='{{song.url}}' class="playPic" bindtap="playing" />
-	</view>
-	
-	<view class="center">
-		<image src="http://www.yunmic.club/img/xiazai.png" class="down" bindtap="dow" data-file='{{song.name}}'/>
-		<image src="http://www.yunmic.club/img/myheart.png" class="love" bindtap="collect" data-name='{{song.name}}' wx:if="{{show}}"/>
-		<image src="http://www.yunmic.club/img/loved.png" class="loved" bindtap="collect" data-name='{{song.name}}' wx:else/>
-	</view>
-</view>
+	</view> -->
+   
