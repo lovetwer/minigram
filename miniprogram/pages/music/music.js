@@ -18,11 +18,21 @@ Page({
   },
   async getMusics(){
     console.log(11)
-    let res = await db.collection('music').get()
-    this.setData({
-      musics:res.data
-    })
-    console.log('getMusic',res)
+    try{
+      let res = await wx.cloud.callFunction({name:'getMusic'})
+      console.log('music',res)
+      this.setData({
+        musics:res.result.data
+      })
+    }
+    catch(err){
+      console.log('err',err)
+    }
+    // let res = await db.collection('music').get()
+    // this.setData({
+    //   musics:res.data
+    // })
+    // console.log('getMusic',res)
   },
   hadleToPlayPage({
     currentTarget:{

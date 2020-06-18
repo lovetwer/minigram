@@ -52,6 +52,7 @@ Page({
     return arr
   },
   onLoad: function (options) {
+    // console.log('lrc',lrc)
     this.getMusicById(options.id)
   },
   async getMusicById(id){

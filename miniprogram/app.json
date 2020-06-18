@@ -21,6 +21,10 @@
       {
         "pagePath": "pages/music/music",
         "text": "列表"
+      },
+      {
+        "pagePath": "pages/backgroundPlayer/index",
+        "text": "播放器"
       }
     ]
   },
