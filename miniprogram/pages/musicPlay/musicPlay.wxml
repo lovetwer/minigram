@@ -5,7 +5,7 @@
       <image class="img" src="{{musicObj.coverImg}}"></image>
       <view style="padding:20rpx 0;text-align:center;" catchtap="handleToggleHead">{{currentText}}</view>
     </view>
-    <scroll-view style="z-index:{{isShowHead?0:9}}" animation="{{animationData2}}" catchtap="handleToggleHead" class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
+    <scroll-view animation="{{animationData2}}" catchtap="handleToggleHead" class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
       <view id="line{{toLineNum==-1?toLineNum:index}}" class="lrc {{currentLineNum == index?'active':''}}" wx:for="{{lrcStr}}">{{item.text}}</view>
     </scroll-view>
   </view>

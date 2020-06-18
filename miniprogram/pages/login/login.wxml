@@ -1,0 +1,12 @@
+<!--miniprogram/pages/login/login.wxml--> 
+<view class="body">
+  <view class="headText">
+    <text>Login</text> 
+  </view>
+  <input class='userInfo'  bindinput="getUserName"></input>
+ <input class="passWordInfo"  bindinput="getPassWord"></input>
+ <button bindtap="regis" class="regis">注册</button>
+ <button bindtap="login"  class="login">登录</button>
+</view>
+<!-- <button bindtap="regis" class="regis">注册</button> -->
+
