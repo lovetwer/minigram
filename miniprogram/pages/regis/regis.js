@@ -11,6 +11,7 @@ Page({
     userName:'',
     passWord:'',
     type:'',
+    picSrc:''
   },
   user: function(e){
     var th  = this
@@ -55,11 +56,11 @@ Page({
             "Content-Type": "multipart/form-data"
           },
           success: function(res) {
-            let scr = th.data.hp+'/img/'+res.data
-            console.log("scr_____________"+scr)
+            //let scr = th.data.hp+'/img/'+res.data
+            let scr = res.data
             if (res.statusCode === 200) {
                 th.setData({
-                  picSrc:scr.toString()
+                  picSrc:scr
                 })
                 console.log(th.data.picSrc)
             }
