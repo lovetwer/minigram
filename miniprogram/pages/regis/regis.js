@@ -53,11 +53,11 @@ Page({
           filePath: tempFilePaths[0],
           name: 'file',
           header: {
-            "Content-Type": "multipart/form-data"
+            'content-type': 'application/x-www-form-urlencoded'
           },
           success: function(res) {
-            //let scr = th.data.hp+'/img/'+res.data
-            let scr = res.data
+            console.log('res-------------'+res.data)
+            let scr = th.data.hp+'/img/'+res.data
             if (res.statusCode === 200) {
                 th.setData({
                   picSrc:scr
