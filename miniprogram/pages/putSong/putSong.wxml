@@ -6,18 +6,11 @@
 </view>
 <view wx:for="{{song}}"wx:for-item="song"  class="body" >
 <block>
-<image src="{{song.micPic}}" class="micPic" bindtap="toPlay" data-pic="{{song.micPic}}"/>
-
-<text class="songName" bindtap="toPlay" data-name="{{song.name}}" data-singer="{{song.singer}}" data-id='{{song.id}}'>{{song.name}}</text>
-<text class="singer" bindtap="toPlay" data-name="{{song.name}}" data-id='{{song.id}}' data-singer="{{song.singer}}">{{song.singer}}</text>
-
-
-
-
-
-<!--<image src="../../aissits/image/play.png"  bindtap="play" data-id='myAudio{{song.id}}' class="butPlay" /> 
-<image src="../../aissits/image/paused.png"  bindtap="paused" data-id='myAudio{{song.id}}' class="butPaused" />
-<image src="../../aissits/image/right.png"  bindtap="nextPlay" data-id='myAudio{{song.id}}' class="nextPlay" />-->
+<view bindtap="toPlay"  data-name="{{song.name}}"  data-singer="{{song.singer}}">
+<image src="{{hp+song.micPic}}" class="micPic" />
+<text class="songName" >{{song.name}}</text>
+<text class="singer" >{{song.singer}}</text>
+</view>
 </block>
 </view>
 </view>

@@ -1,7 +1,7 @@
 <!--miniprogram/pages/singer/singer.wxml-->
 <view class="top">
-	<image src="http://192.168.6.104/img/chengdou.jpg" class="headpic"></image>
-	<text class="sname">李兵兵 </text>
+	<image src="{{songer.headpic}}" class="headpic"></image>
+	<text class="sname">{{songer.name}}</text>
 </view>
 
 <view class="space"></view>
@@ -9,7 +9,7 @@
 <view class="body">
 
 	<view class="botop">
-		<image src="http://192.168.6.104/img/yinle.png" class="ico"></image>
+		<image src="{{hp+'/img/yinle.png'}}" class="ico"></image>
 		<text class="sim">Ta的单曲</text>
 		<text class="more">更多</text>
 	</view>
@@ -25,7 +25,7 @@
 
 	<view class="down">
 		<view class="my">
-		<image src="http://192.168.6.104/img/gerenxinxi.png" class="person"></image>
+		<image src="{{hp+'/img/gerenxinxi.png'}}" class="person"></image>
       <text class="myself">个人信息</text>
     </view>
 		<view class="info">

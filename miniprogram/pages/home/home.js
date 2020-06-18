@@ -1,10 +1,12 @@
 // miniprogram/pages/home/home.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    hp:app.globalData.hp,
     name: 'bingbing',
     body: [
       {head:'big',hand:'small'},

@@ -1,4 +1,4 @@
-// miniprogram/pages/singer/singer.js
+// miniprogram/pages/login/login.js
 const app = getApp();
 Page({
 
@@ -7,37 +7,50 @@ Page({
    */
   data: {
     hp:app.globalData.hp,
-    song:[],
-    songer:{}
+    id:'',
+    passWord:''
   },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
+  getUserName: function(e){
+    var th  = this
+    th.setData({
+      id: e.detail.value
+    })
+  },
+  getPassWord: function(e){
+    var th  = this
+    th.setData({
+      passWord: e.detail.value
+    })
+  },
+  
+  login: function(){
+    var th  = this
+    wx.request({
+      url: th.data.hp+'/login',
+      method:'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        'id': th.data.id,
+        'passWord': th.data.passWord,
+      },
+      success: function(res){
+        console.log(res.data)
+        getApp().globalData.header.Cookie = 'JSESSIONID=' + res.data;
+        wx.navigateTo({
+          url: '../putSong/putSong'
+        })
+      }
+    })
+  },
   onLoad: function (options) {
-     var th = this
-       th.setData({
-         songer: JSON.parse(options.songer)
-       })
-       console.log(th.data.songer.name)
-       wx.request({
-         url: th.data.hp+'/simpSong',
-         data: { 
-           'name':"",
-           'singer':th.data.songer.name
-         },
-         method: 'post',
-         header: {
-          'content-type': 'application/x-www-form-urlencoded'
-         },
-         success: function(res){
-           console.log(res) 
-           th.setData({
-             song:res.data
-           })
-         console.log(th.data.song)
-        }
-       })
+
   },
 
   /**

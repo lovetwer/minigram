@@ -1,10 +1,12 @@
 // miniprogram/pages/search/search.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    hp:app.globalData.hp,
       song:[],
       songer:{}
   },
@@ -15,7 +17,7 @@ Page({
     })
     console.log(th.data.a)
     wx.request({
-      url: 'http://192.168.6.104/search',
+      url: th.data.hp+'/search',
       method:'post',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -43,7 +45,7 @@ Page({
       })
     }else{
       wx.request({
-        url: 'http://192.168.6.104/singerMore',
+        url: th.data.hp+'/singerMore',
               data: {
                 'name': singerName,
               },

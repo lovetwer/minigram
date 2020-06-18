@@ -1,5 +1,6 @@
 // miniprogram/pages/putSong/putSong.js
 // const myaudio = wx.createInnerAudioContext({});
+const app = getApp();
 const mic = wx.createInnerAudioContext()
 Page({
 
@@ -7,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hp:app.globalData.hp,
     song:[],
   },
     /*
@@ -19,7 +21,7 @@ Page({
     mic.play();
     var th = this
     wx.request({
-      url: 'http://192.168.6.104/FindMic',
+      url: th.data.hp+'/FindMic',
       data: { 'song':''
       },
       method:'get',
@@ -35,13 +37,11 @@ Page({
     })
   },
   toPlay: function(e){
-    var id =e.currentTarget.dataset.id
     var name =e.currentTarget.dataset.name
     var singer =e.currentTarget.dataset.singer
-    var micPic =e.currentTarget.dataset.pic
-    console.log(id+name+singer+micPic)
+    console.log(name+singer)
     wx.navigateTo({
-      url: '../play/play?id='+id+'&name='+name+'&singer='+singer+'&micPic='+micPic,
+      url: '../play/play?name='+name+'&singer='+singer,
     })
   },
 

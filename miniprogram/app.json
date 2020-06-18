@@ -7,7 +7,9 @@
     "pages/play/play",
     "pages/music/music",
     "pages/musicPlay/musicPlay",
-    "pages/backgroundPlayer/index"
+    "pages/backgroundPlayer/index",
+    "pages/login/login",
+    "pages/regis/regis"
   ],
   "requiredBackgroundModes": [
     "audio"
