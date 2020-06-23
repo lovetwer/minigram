@@ -250,11 +250,19 @@ Page({
         method: 'post',
         header: header,
         success: function (res) {
-          th.setData({
-            comment:res.data.comment,
-            shotStatus:res.data.shotStatus,
-            currentIndex:index,
-          })
+          if(res.data===null){
+            wx.showToast({
+              title: '先登录！',
+              icon: 'none',
+              duration: 1500
+            })
+          }else{
+            th.setData({
+              comment:res.data.comment,
+              shotStatus:res.data.shotStatus,
+              currentIndex:index,
+            })
+          }
           console.log(res.data.shotStatus)
           }
         })

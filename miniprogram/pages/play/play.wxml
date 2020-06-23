@@ -27,8 +27,10 @@
 				<view class="commenter">{{item.commenter}}</view>
 				<view class="date">{{item.date}}</view>
 			</view>
-			<image src="{{hp+'/img/dianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:if='{{index===currentIndex}}' data-index="{{index}}"></image>
-			<image src="{{hp+'/img/yidianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:else data-index="{{index}}"></image>
+		
+			<image src="{{hp+'/img/yidianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:if='{{index===currentIndex}}' data-index="{{index}}"></image>
+			
+				<image src="{{hp+'/img/dianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:else data-index="{{index}}"></image>
 			<view class="count" wx:if="{{item.count}}">({{item.count}})</view>
 		</view>
 
