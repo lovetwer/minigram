@@ -4,7 +4,7 @@
   <input value="用户名" bindinput="userName"></input>
   <input value="密码" bindinput="passWord"></input>
   <input value="身份" bindinput="type"></input>
-  <text bindtap="headPic">添加头像</text>
+  <view bindtap="headPic" style="padding:10px 0">添加头像</view>
   <view class="op">{{picSrc}}</view>
   
 </view>

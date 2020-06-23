@@ -102,16 +102,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/login/login",
-					"pathName": "pages/login/login",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
+					"id": 7,
 					"name": "pages/regis/regis",
 					"pathName": "pages/regis/regis",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -56,8 +56,8 @@ Page({
             'content-type': 'application/x-www-form-urlencoded'
           },
           success: function(res) {
-            console.log('res-------------'+res.data)
-            let scr = th.data.hp+'/img/'+res.data
+            console.log('res-------------',res)
+            let scr = th.data.hp + '/img/' + res.data
             if (res.statusCode === 200) {
                 th.setData({
                   picSrc:scr
