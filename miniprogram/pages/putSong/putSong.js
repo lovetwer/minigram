@@ -14,7 +14,11 @@ Page({
     /*
 
    * 生命周期函数--监听页面加载
-   */
+   */click(){
+   wx.navigateTo({
+    url: '../search/search',
+  })
+ },
   onLoad: function (options) {
     mic.src = 'https://sharefs.yun.kugou.com/202005211331/83a29ef051d952f948192452087d82ea/G067/M02/05/17/44YBAFfkCeaAbAWgADBiNiQR_b0385.1mp3';
     console.log(mic);

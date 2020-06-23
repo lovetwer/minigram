@@ -36,6 +36,13 @@ page{
   filter: blur(100rpx);
   z-index: -999;
 }
+.countpic{
+  width: 25px;
+  height: 25px;
+}
+.count{
+  margin-top: 10rpx
+}
 
 /* .singer {
   width: 100%;
@@ -79,44 +86,43 @@ page{
 .playBut{
   border: 3px solid white;
   border-style: solid;
-  border-width: 3px;
+  border-width: 2px;
   height: 50px;
-  width: 103rpx;
+  width: 50px;
   position: absolute;
   z-index: 1;
-  right: 42%;
-  top: 17%;
   border-radius: 50%;
 
 }
 .triangle-right {
   border-top: 20px solid transparent;
-  border-left: 33px solid white;
+  border-left: 32px solid white;
   border-bottom: 20px solid transparent;
   position: absolute;
   z-index: 1;
-  right: 44%;
-  top: 18%;
+  margin-left: 1%;
+
   
 }
 .paused{
   border:3px solid white;
   border-style: solid;
-  height: 60rpx;
+  height: 50rpx;
   position: absolute;
   z-index: 1;
-  right: 51%;
-  top: 18.5%;
+  margin-left: -1%;
+
   
 }
 .paused2{
   border:3px solid white;
   border-style: solid;
-  height: 60rpx;
+  height: 50rpx;
   position: absolute;
   z-index: 1;
-  right: 46.5%;
-  top: 18.5%;
+  margin-left: 2%;
+
+
 }
 
 .comment{
@@ -127,9 +133,85 @@ page{
 .progress{
   display:flex;
   align-items: center;
-  margin-left: 18%;
+  margin-left: 20%;
 
 }
 .progress .slider{
   width:380rpx;
+}
+.commenter{
+  font-size: 16px;
+  margin-left: 2%;
+  
+
+  
+}
+.info{
+  width: 80%;
+margin-left: 17%;
+
+}
+.date{
+  font-size: 20rpx;
+margin-left: 2%;
+
+}
+.com1{
+
+}
+.com2{
+  font-size: 25rpx;
+font-weight: 400;
+padding: 10rpx;
+
+
+}
+.com3{
+  display: flex;
+}
+.headpic{
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+
+}
+.com4{
+width: 100%;
+font-size: 15px;
+
+}
+.com5{
+  flex:1;
+}
+input{
+  border: 1px solid gray;
+  margin-left: 14%;
+  width: 70%;
+  
+
+}
+.ge{
+  width: 80%;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: rgb(180, 178, 178);
+  margin-left: 14%;
+margin-top: 5%;
+
+}
+.down{
+width: 100%;
+height: 5%;
+display: flex;
+}
+.more{
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+}
+.moreText{
+  text-align: center;
+  width: 100%;
+  color: rgb(59, 172, 248);
 }

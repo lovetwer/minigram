@@ -1,65 +1,37 @@
 /* miniprogram/pages/login/login.wxss */
 page{
   height:100%;
-  background: rgb(208,207,193);
 }
 .body{
-  margin-top: 30%;
   width: 80%;
-  height: 30%;
+  height: 40%;
   margin-left: 10%;
-  background: #bebaba;
-  box-shadow: inset 20px -20px 60px #a29e9e, 
-              inset -20px 20px 60px #dbd6d6;
+margin-top: 25%;
+
 }
-.headText{
-  height: 25%;
-  background: #e1b741;
-  box-shadow: inset 20px -20px 60px #bf9c37, 
-              inset -20px 20px 60px #ffd24b;
+button{
+  background-color: white;
+  color: darkgrey;
+  margin-top: 7%;
+
+}
+input{
+  border-width: 0 0 1px 0;
+border-style: solid;
+border-color: rgb(180, 178, 178);
+  padding: 4%;
+  padding-bottom: 2%;
+  margin-top: 5%;
+
 }
 .userInfo{
-  background: #ffffff;
-box-shadow: inset 20px -20px 60px #d9d9d9, 
-            inset -20px 20px 60px #ffffff;
-  list-style:none;
-  outline: none;
-  text-align: center;
-  width: 80%;
-  height: 6%;
-  margin-left: 10%;
-  margin-top: 3%;
-float: left;
 
 }
 
 .passWordInfo{
-  background: #ffffff;
-  box-shadow: inset 20px -20px 60px #d9d9d9, 
-              inset -20px 20px 60px #ffffff;
-  list-style:none;
-  outline: none;
-  text-align: center;
-  width: 80%;
-  height: 6%;
-  margin-left: 10%;
-  float: left;
-margin-top: 6%;
-
+  
 }
 .regis{
-  height: 80rpx;
-  width: 25%;
-  margin-left: 10%;
-margin-top: 3%;
-float: left;
-
 }
 .login{
-  height: 80rpx;
-  width: 25%;
-  margin-right: 10%;
-margin-top: 3%;
-float: right;
-
 }
