@@ -207,10 +207,13 @@ Page({
                 'content-type': 'application/x-www-form-urlencoded'
               },
               success: function (res) {
+                console.log('res',res)
+                res.data.forEach(item=>{
+                  item.shotStatus = false
+                })
                 th.setData({
                   comment:res.data,
                 })
-                console.log('res++++++++++'+res.data.length)
                 if(res.data.length<5){
                   th.setData({
                     condition:false,
@@ -241,6 +244,12 @@ Page({
       url: '../login/login'
     })
   }else{
+    let arr = this.data.comment
+    arr[index].shotStatus = !arr[index].shotStatus
+    this.setData({
+      comment:arr
+    })
+    return
       wx.request({
         url: th.data.hp+'/shotYes',
         data: {
@@ -250,6 +259,7 @@ Page({
         method: 'post',
         header: header,
         success: function (res) {
+          console.log(res)
           th.setData({
             comment:res.data.comment,
             shotStatus:res.data.shotStatus,
