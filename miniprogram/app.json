@@ -14,25 +14,6 @@
   "requiredBackgroundModes": [
     "audio"
   ],
-<<<<<<< HEAD
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/home/home",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/music/music",
-        "text": "列表"
-      },
-      {
-        "pagePath": "pages/backgroundPlayer/index",
-        "text": "播放器"
-      }
-    ]
-  },
-=======
->>>>>>> f2b56737cc83cff8db6f0b9e5f8548f48bfe8cef
   "window": {
     "navigationBarBackgroundColor": "#ff0000",
     "navigationBarTextStyle": "black",

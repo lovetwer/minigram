@@ -6,17 +6,7 @@
   <input placeholder="身份" bindinput="type" class="type"></input>
 </view>
 <view class="body">
-<<<<<<< HEAD
-<input value="账号" bindinput="user"></input>
-  <input value="用户名" bindinput="userName"></input>
-  <input value="密码" bindinput="passWord"></input>
-  <input value="身份" bindinput="type"></input>
-  <view bindtap="headPic" style="padding:10px 0">添加头像</view>
-  <view class="op">{{picSrc}}</view>
-  
-=======
    <text bindtap="headPic" class="picText">添加头像</text>
   <image  src='{{picSrc}}' class="pic"></image>
->>>>>>> f2b56737cc83cff8db6f0b9e5f8548f48bfe8cef
 </view>
 <button bindtap="regis" class="regis">立即注册</button>

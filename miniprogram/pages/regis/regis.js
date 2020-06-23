@@ -59,13 +59,8 @@ Page({
             'content-type': 'application/x-www-form-urlencoded',
             'content-type': 'json'
           },
-<<<<<<< HEAD
-          success: function(res) {
-            console.log('res-------------',res)
-=======
           success: function (res) {
             console.log('res-------------' + res)
->>>>>>> f2b56737cc83cff8db6f0b9e5f8548f48bfe8cef
             let scr = th.data.hp + '/img/' + res.data
             if (res.statusCode === 200) {
               th.setData({
