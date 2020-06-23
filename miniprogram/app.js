@@ -1,8 +1,27 @@
+  /*"tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/music/music",
+        "text": "列表"
+      }
+    ]
+  },*/
 App({
   globalData:{
+<<<<<<< HEAD
     hp:'http://zjtm2a.natappfree.cc',
     // hp:'http://127.0.0.1',
     header:{'Cookie': '', 'content-type': 'application/x-www-form-urlencoded'} //这里还可以加入其它需要的请求头，比如'x-requested-with': 'XMLHttpRequest'表示ajax提交，微信的请求时不会带上这个的
+=======
+    hp:'http://lovetwer.vip.qydev.com',
+    //hp:'http://127.0.0.1',
+    header:{'Cookie': '', 'content-type': 'application/x-www-form-urlencoded'}, 
+    playStauts:false
+>>>>>>> f2b56737cc83cff8db6f0b9e5f8548f48bfe8cef
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）

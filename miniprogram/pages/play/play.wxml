@@ -1,39 +1,50 @@
 <!--miniprogram/pages/paly/play.wxml-->
-  <image src='{{hp+song.micPic}}' class="bgpic"></image>
-	<view class="micImg" data-src='{{hp+song.url}}' bindtap="playing">
-		<view class="playBut"></view>
-		<view class="triangle-right" wx:if="{{!playSatus}}"></view>
-		<view class="paused" wx:if="{{playSatus}}"></view>
-		<view class="paused2" wx:if="{{playSatus}}"></view>
-		<image src="{{hp+song.micPic}}"   class="playPic"  />
-	</view>
-	<scroll-view animation="{{animationData2}}"  class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
-      <view id="line{{toLineNum==-1?toLineNum:index}}" class="lrc {{currentLineNum == index?'active':''}}" wx:for="{{lrc}}">{{item.text}}</view>
-    </scroll-view>
-	<!-- <view class="jg"></view> -->
-	<view class="progress">
-    <view>
-      <slider
-			activeColor="red"
-        class="slider"
-        block-size="{{12}}"
-        value="{{currentTime}}"
-        max="{{duration}}" />
-    </view>
-  </view>
-	<view class="down">
-		<text class="comment">精彩评论</text>
-	</view>
+<image src='{{hp+song.micPic}}' class="bgpic"></image>
+<view class="micImg" data-src='{{hp+song.url}}' bindtap="playing">
+	<view class="playBut"></view>
+	<view class="triangle-right" wx:if="{{!playSatus}}"></view>
+	<view class="paused" wx:if="{{playSatus}}"></view>
+	<view class="paused2" wx:if="{{playSatus}}"></view>
+	<image src="{{hp+song.micPic}}" class="playPic" />
+</view>
+<scroll-view animation="{{animationData2}}" class="lrc-wrapper" scroll-y scroll-into-view="line{{toLineNum}}" scroll-with-animation>
+	<view id="line{{toLineNum==-1?toLineNum:index}}" class="lrc {{currentLineNum == index?'active':''}}" wx:for="{{lrc}}">{{item.text}}</view>
+</scroll-view>
+<!-- <view class="jg"></view> -->
+<view class="progress">
 	<view>
-		<view wx:for="{{comment}}">
-			<text>{{item.commenter}}</text>:<text>{{item.info}}</text><text>{{item.date}}</text>
+		<slider activeColor="red" class="slider" block-size="{{12}}" value="{{currentTime}}" max="{{duration}}" />
+	</view>
+</view>
+<view class="down">
+	<text class="comment">精彩评论</text>
+</view>
+<view class="com1">
+	<view wx:for="{{comment}}" class="com2">
+		<view class="com3">
+			<image src="{{hp+item.compic}}" class="headpic" />
+			<view class="com5">
+				<view class="commenter">{{item.commenter}}</view>
+				<view class="date">{{item.date}}</view>
+			</view>
+			<image src="{{hp+'/img/dianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:if='{{index==currentIndex}}' data-index="{{index}}"></image>
+			<image src="{{hp+'/img/yidianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:if='{{!index===currentIndex}}' data-index="{{index}}"></image>
+			<view class="count" wx:if="{{item.count}}">({{item.count}})</view>
 		</view>
+
+		<view class="com4">
+			<view class="info">{{item.info}}</view>
+		</view>
+		<view class="ge"></view>
 	</view>
-	<view>
+</view>
+<view class="more" wx:if="{{condition}}" bindtap="more">
+	<text class="moreText" >查看更多</text>
+</view>
+<view class="down">
 	<input bindinput="comment"></input><text	bindtap="push">发送</text>
-	</view>
-	<!-- <view class="head">
+</view>
+<!-- <view class="head">
 		<view class="head1"><text class="songName">{{song.name}}</text></view>
 		<view class="head2"><text class="singer">{{song.singer}}</text></view>
 	</view> -->
-   

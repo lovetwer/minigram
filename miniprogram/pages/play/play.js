@@ -22,7 +22,10 @@ Page({
        comm:'',
        song:'',
        songName:"",
-       comment:''
+       comment:'',
+       condition:true,
+       shotStatus:false,
+       currentIndex:''
       },
 
       /**
@@ -31,7 +34,6 @@ Page({
 
       
           playing: function (e) {
-            console.log("我再点击")
             var th= this
             var src = e.currentTarget.dataset.src;
             mic.src = src;
@@ -60,6 +62,7 @@ Page({
               })
             }else{
               mic.play();
+              app.globalData.playStauts=true
             //mic.autoplay = true    
             mic.onPlay(() => {
               console.log('开始播放')
@@ -109,16 +112,28 @@ Page({
         }
       })
   },
+
   comment: function(e){
     var th  = this
     th.setData({
       comm: e.detail.value
     })
   },
+  
   push: function() {
     var th = this
     var  header = getApp().globalData.header;
     console.log("header---------"+header.Cookie)
+    if(header.Cookie.length==0){
+    wx.showToast({
+      title: '先登录！',
+      icon: 'none',
+      duration: 1500
+    })
+    wx.navigateTo({
+      url: '../login/login'
+    })
+    }else{
     wx.request({
       url: th.data.hp+'/comment',
       data: {
@@ -129,13 +144,34 @@ Page({
       method: 'post',
       header: header, 
       success: function (res) {
-        th.setData({
-          comment:res.data
-        })
+        console.log('res.data------'+res.data)
+          th.setData({
+            comment:res.data
+          })
       }
     })
+  }
   },
- 
+  more: function() {
+    var th = this
+    wx.request({
+      url: th.data.hp+'/commMore',
+      data: {
+        'song': th.data.songName
+      },
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+          th.setData({
+            comment:res.data,
+            condition:false
+          })
+      }
+    })
+
+  },
           onLoad: function (options) {
             var name = options.name;
             var singer = options.singer;
@@ -171,14 +207,60 @@ Page({
                 'content-type': 'application/x-www-form-urlencoded'
               },
               success: function (res) {
-                console.log("res.data???????"+res.data)
-               th.setData({
-                comment:res.data
-              })
+                th.setData({
+                  comment:res.data,
+                })
+                console.log('res++++++++++'+res.data.length)
+                if(res.data.length<5){
+                  th.setData({
+                    condition:false,
+                  })
+                }else{
+                  th.setData({
+                    condition:true,
+                  })
+                } 
               }
             })
             console.log("th.data.comment======"+th.data.comment)
           },
+   shotYes: function(e){
+    var date = e.currentTarget.dataset.date;
+    var song = e.currentTarget.dataset.song;
+    var index =e.currentTarget.dataset.index
+    var th = this
+    var  header = getApp().globalData.header;
+    console.log("header---------"+header.Cookie)
+    if(header.Cookie.length==0){
+    wx.showToast({
+      title: '先登录！',
+      icon: 'none',
+      duration: 1500
+    })
+    wx.navigateTo({
+      url: '../login/login'
+    })
+  }else{
+      wx.request({
+        url: th.data.hp+'/shotYes',
+        data: {
+          'date': date,
+          'song':song
+        },
+        method: 'post',
+        header: header,
+        success: function (res) {
+          th.setData({
+            comment:res.data.comment,
+            shotStatus:res.data.shotStatus,
+            currentIndex:index,
+          })
+          console.log(res.data.shotStatus)
+          }
+        })
+    }
+    
+   },
 // collect: function(e){
 //   var th = this
   

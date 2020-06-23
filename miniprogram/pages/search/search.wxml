@@ -1,11 +1,11 @@
 <!--miniprogram/pages/search/search.wxml-->
 <view>
 	<view class="head">
-		<input class="search" type="text" placeholder="🔍  音乐/用户" bindinput="click" value="{{a}}">
+		<input class="search" type="text" placeholder="🔍  音乐/歌手" bindinput="click" value="{{a}}">
     </input>
 	</view>
 	</view>
-	<view class="main">
+	<view class="main" wx:if="{{song.length>0}}">
 	<view wx:for="{{song}}" wx:for-item="song"  class="body">
 		<view class="songname" bindtap="toSmor" data-name="{{song.name}}">{{song.name}}</view>
 		<view class="singer" bindtap="toSmor" data-singer="{{song.singer}}">{{song.singer}}</view>

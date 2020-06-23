@@ -27,7 +27,11 @@ Page({
       passWord: e.detail.value
     })
   },
-  
+  regis: function(){
+    wx.navigateTo({
+    url: '../regis/regis'
+    })
+  },
   login: function(){
     var th  = this
     wx.request({
@@ -43,9 +47,24 @@ Page({
       success: function(res){
         console.log(res.data)
         getApp().globalData.header.Cookie = 'JSESSIONID=' + res.data;
-        wx.navigateTo({
-          url: '../putSong/putSong'
+        if(res.data !== "err"){
+          if(app.globalData.playStauts=true){
+            wx.navigateTo({
+              url: '../putSong/putSong'
+            })
+          }else{
+            wx.navigateTo({
+              url: '../putSong/putSong'
+            })
+          }
+        }else{
+          wx.showToast({
+            title: '账号密码错误！',
+            icon: 'none',
+            duration: 1500
         })
+        }
+       
       }
     })
   },

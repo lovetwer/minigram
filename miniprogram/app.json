@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/putSong/putSong",
     "pages/home/home",
     "pages/singer/singer",
     "pages/search/search",
-    "pages/putSong/putSong",
     "pages/play/play",
     "pages/music/music",
     "pages/musicPlay/musicPlay",
@@ -14,6 +14,7 @@
   "requiredBackgroundModes": [
     "audio"
   ],
+<<<<<<< HEAD
   "tabBar": {
     "list": [
       {
@@ -30,6 +31,8 @@
       }
     ]
   },
+=======
+>>>>>>> f2b56737cc83cff8db6f0b9e5f8548f48bfe8cef
   "window": {
     "navigationBarBackgroundColor": "#ff0000",
     "navigationBarTextStyle": "black",

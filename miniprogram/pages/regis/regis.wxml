@@ -1,5 +1,12 @@
 <!--miniprogram/pages/regis/regis.wxml-->
+<view class="head">
+<input placeholder="账号(仅支持数字)" bindinput="user" class="user"></input>
+  <input placeholder="用户名" bindinput="userName" class="userName"></input>
+  <input placeholder="密码" bindinput="passWord" type='password' class="passWord"></input>
+  <input placeholder="身份" bindinput="type" class="type"></input>
+</view>
 <view class="body">
+<<<<<<< HEAD
 <input value="账号" bindinput="user"></input>
   <input value="用户名" bindinput="userName"></input>
   <input value="密码" bindinput="passWord"></input>
@@ -7,6 +14,9 @@
   <view bindtap="headPic" style="padding:10px 0">添加头像</view>
   <view class="op">{{picSrc}}</view>
   
+=======
+   <text bindtap="headPic" class="picText">添加头像</text>
+  <image  src='{{picSrc}}' class="pic"></image>
+>>>>>>> f2b56737cc83cff8db6f0b9e5f8548f48bfe8cef
 </view>
-<image wx:if="{{picSrc}}" src='{{picSrc}}'></image>
-<button bindtap="regis">立即注册</button>
+<button bindtap="regis" class="regis">立即注册</button>

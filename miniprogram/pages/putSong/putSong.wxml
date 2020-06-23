@@ -1,17 +1,17 @@
 <!--miniprogram/pages/putSong/putSong.wxml-->
-<view class="all">
 <view class="head">
 	<input class="search" type="text" placeholder="🔍  音乐/视频/用户" bindtap="click">
     </input>
 </view>
 <view wx:for="{{song}}"wx:for-item="song"  class="body" >
 <block>
-<view bindtap="toPlay"  data-name="{{song.name}}"  data-singer="{{song.singer}}">
+<view bindtap="toPlay"  data-name="{{song.name}}"  data-singer="{{song.singer}}" class="body1">
 <image src="{{hp+song.micPic}}" class="micPic" />
-<text class="songName" >{{song.name}}</text>
-<text class="singer" >{{song.singer}}</text>
+<view class="body2">
+<view class="songName" >{{song.name}}</view>
+<view class="singer" >{{song.singer}}</view>
+</view>
 </view>
 </block>
-</view>
 </view>
 
