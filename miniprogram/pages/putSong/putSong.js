@@ -20,32 +20,28 @@ Page({
   })
  },
   onLoad: function (options) {
-    mic.src = 'https://sharefs.yun.kugou.com/202005211331/83a29ef051d952f948192452087d82ea/G067/M02/05/17/44YBAFfkCeaAbAWgADBiNiQR_b0385.1mp3';
-    console.log(mic);
-    mic.play();
+
     var th = this
-    wx.request({
-      url: th.data.hp+'/FindMic',
-      data: { 'song':''
-      },
-      method:'get',
-      header:{
-        'content-type':'application/json'
-      },
-      success: function(res){
-        console.log(res)
-        th.setData({
-          song:res.data, 
-        })
+    wx.cloud.callFunction({
+      name: 'bridge',//你的云函数名称
+      data: {
+        url: 'http://112.124.203.93/FindMic'
       }
-    })
+    }).then( (res)=>{
+        console.log(res);
+        
+          th.setData({
+            song: res.result
+          })
+      })
   },
   toPlay: function(e){
+    var id =e.currentTarget.dataset.id
     var name =e.currentTarget.dataset.name
     var singer =e.currentTarget.dataset.singer
-    console.log(name+singer)
+    console.log(name+singer+id)
     wx.navigateTo({
-      url: '../play/play?name='+name+'&singer='+singer,
+      url: '../play/play?name='+name+'&singer='+singer+'&id='+id,
     })
   },
 

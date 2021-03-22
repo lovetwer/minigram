@@ -5,7 +5,7 @@
 </view>
 <view wx:for="{{song}}"wx:for-item="song"  class="body" >
 <block>
-<view bindtap="toPlay"  data-name="{{song.name}}"  data-singer="{{song.singer}}" class="body1">
+<view bindtap="toPlay"  data-name="{{song.name}}" data-id="{{song.sId}}"   data-singer="{{song.singer}}" class="body1">
 <image src="{{hp+song.micPic}}" class="micPic" />
 <view class="body2">
 <view class="songName" >{{song.name}}</view>

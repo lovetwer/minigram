@@ -1,4 +1,6 @@
 <!--miniprogram/pages/paly/play.wxml-->
+<view class="custom flex_center" style="padding-top:{{statusBarHeight}}px">  <text class="t1"></text><text class="t2" wx:if='{{scrollTop<10?true:false}}'>{{song.name}}</text></view><view class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
+<view class="t3">{{song.singer}}</view>
 <image src='{{hp+song.micPic}}' class="bgpic"></image>
 <view class="micImg" data-src='{{hp+song.url}}' bindtap="playing">
 	<view class="playBut"></view>
@@ -22,14 +24,14 @@
 <view class="com1">
 	<view wx:for="{{comment}}" class="com2">
 		<view class="com3">
-			<image src="{{hp+item.compic}}" class="headpic" />
+			<image src="{{hp+item.auser.pic}}" class="headpic" />
 			<view class="com5">
-				<view class="commenter">{{item.commenter}}</view>
+				<view class="commenter">{{item.auser.name}}</view>
 				<view class="date">{{item.date}}</view>
 			</view>
-			<image src="{{hp+'/img/dianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:if='{{!item.shotStatus}}' data-index="{{index}}"></image>
-			<image src="{{hp+'/img/yidianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-song='{{item.song}}' wx:else data-index="{{index}}"></image>
-			<view class="count" wx:if="{{item.count}}">({{item.count}})</view>
+			<image src="{{hp+'/img/dianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-sid='{{item.sId}}' data-cid='{{item.cId}}' wx:if='{{!shotYes[index].status}}' ></image>
+			<image src="{{hp+'/img/yidianzan.png'}}" class="countpic" bindtap="shotYes" data-date='{{item.date}}' data-sId='{{item.sId}}' data-cid='{{item.cId}}' wx:else ></image>
+			<view class="count" wx:if="{{item.count}}">{{item.count}}</view>
 		</view>
 
 		<view class="com4">

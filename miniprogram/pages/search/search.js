@@ -16,23 +16,19 @@ Page({
       a: e.detail.value
     })
     console.log(th.data.a)
-    wx.request({
-      url: th.data.hp+'/search',
-      method:'post',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
+
+    wx.cloud.callFunction({
+      name: 'bridge',//你的云函数名称
       data: {
-        'a': th.data.a,
-      },
-      success: function(res){
-        console.log(res.data)
-        th.setData({
-          song: res.data.song
-        })
-      
-        console.log(th.data.song)
+        url: th.data.hp+'/search',
+        a: th.data.a,
       }
+    }).then( (res)=>{
+        console.log(res);
+        th.setData({
+          song: res.result.song
+        })
+      console.log(th.data.song)   
     })
   },
     toSmor: function(e){
@@ -44,25 +40,23 @@ Page({
         url: '../play/play?name='+name,
       })
     }else{
-      wx.request({
-        url: th.data.hp+'/singerMore',
-              data: {
-                'name': singerName,
-              },
-              method: 'post',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              success: function (res) { 
-                th.setData({
-                  songer: res.data
-                })           
-                wx.navigateTo({
-                  url: '../singer/singer?songer='+JSON.stringify(th.data.songer)
-                })
-              }  
-             }) 
-             }  
+
+      wx.cloud.callFunction({
+        name: 'bridge',//你的云函数名称
+        data: {
+          url: th.data.hp+'/singerMore',
+          'name': singerName,
+        }
+      }).then( (res)=>{
+          console.log(res);
+          th.setData({
+            songer: res.result
+          })           
+          wx.navigateTo({
+            url: '../singer/singer?songer='+JSON.stringify(th.data.songer)
+          })
+        }) 
+      }     
     },
   /**
    * 生命周期函数--监听页面加载

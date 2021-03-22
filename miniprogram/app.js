@@ -4,7 +4,7 @@
         "pagePath": "pages/home/home",
         "text": "首页"
       },
-      {
+      { 
         "pagePath": "pages/music/music",
         "text": "列表"
       }
@@ -12,15 +12,23 @@
   },*/
 App({
   globalData:{
-    hp:'http://lovetwer.vip.qydev.com',
-    //hp:'http://127.0.0.1',
+    hp:'http://112.124.203.93/',
     header:{'Cookie': '', 'content-type': 'application/x-www-form-urlencoded'}, 
-    playStauts:false
+    playStauts:false,
+    statusBarHeight:wx.getSystemInfoSync()['statusBarHeight']
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
+    if(!wx.cloud){
+      console.log(error);
+    }else{
+      wx.cloud.init({
+        env:'dev-5pdi2',
+        traceUser:true,
+      })
+      }
     
   },
 

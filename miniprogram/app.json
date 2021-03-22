@@ -9,7 +9,8 @@
     "pages/musicPlay/musicPlay",
     "pages/backgroundPlayer/index",
     "pages/login/login",
-    "pages/regis/regis"
+    "pages/regis/regis",
+    "pages/test/test"
   ],
   "requiredBackgroundModes": [
     "audio"

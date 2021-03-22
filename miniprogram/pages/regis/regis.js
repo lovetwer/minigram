@@ -13,6 +13,11 @@ Page({
     type: '',
     picSrc: '',
     pic: '',
+    items: [
+        { name: 'singer', value: '歌手' },
+        { name: 'user', value: '用户', checked: 'true' },
+      ],
+      radioStr:'歌手',
   },
   user: function (e) {
     var th = this
@@ -20,6 +25,17 @@ Page({
       id: e.detail.value
     })
   },
+  radioChange: function (e) {
+    var str = null;
+    for (var value of this.data.items) {
+      if (value.name === e.detail.value) {
+        str = value.value;
+        break;
+      }
+    }
+    this.setData({ radioStr: str });
+
+},
   userName: function (e) {
     var th = this
     th.setData({
@@ -91,22 +107,19 @@ Page({
           duration: 1500
         })
       } else {
-        wx.request({
-          url: th.data.hp + '/regis',
-          method: 'post',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
+        wx.cloud.callFunction({
+          name: 'bridge',//你的云函数名称
           data: {
-            'id': th.data.id,
-            'userName': th.data.userName,
-            'passWord': th.data.passWord,
-            'type': th.data.type,
-            'pic': th.data.pic
-          },
-          success: function (res) {
-            console.log(res.data)
-            if (res.data === 1) {
+            url: th.data.hp + '/regis',
+            uId: th.data.id,
+            userName: th.data.userName,
+            passWord: th.data.passWord,
+            type: th.data.radioStr,
+            pic: th.data.pic
+          }
+        }).then( (res)=>{
+            console.log(res);
+            if (res.result === 1) {
               wx.navigateTo({
                 url: '../login/login'
               })
@@ -117,10 +130,8 @@ Page({
                 duration: 1500
               })
             }
-          }
-        })
-      }
-    } 
+            }) 
+          }} 
   },
   onLoad: function (options) {
 

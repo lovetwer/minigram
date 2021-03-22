@@ -18,7 +18,7 @@ Page({
   getUserName: function(e){
     var th  = this
     th.setData({
-      id: e.detail.value
+      uId: e.detail.value
     })
   },
   getPassWord: function(e){
@@ -34,20 +34,17 @@ Page({
   },
   login: function(){
     var th  = this
-    wx.request({
-      url: th.data.hp+'/login',
-      method:'post',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        'id': th.data.id,
-        'passWord': th.data.passWord,
-      },
-      success: function(res){
-        console.log(res.data)
-        getApp().globalData.header.Cookie = 'JSESSIONID=' + res.data;
-        if(res.data !== "err"){
+    wx.cloud.callFunction({
+      name: 'bridge',//你的云函数名称
+      data: {   
+        url: 'http://112.124.203.93/login',
+        uId: th.data.uId,
+        passWord: th.data.passWord,
+      } 
+    }).then( (res)=>{
+        console.log(res.result)
+        getApp().globalData.header.Cookie = 'JSESSIONID=' + res.result;
+        if(res.result !== "err"){
           if(app.globalData.playStauts=true){
             wx.navigateTo({
               url: '../putSong/putSong'
@@ -64,10 +61,7 @@ Page({
             duration: 1500
         })
         }
-       
-      }
-    })
-  },
+      })},
   onLoad: function (options) {
 
   },

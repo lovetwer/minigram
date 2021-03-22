@@ -51,7 +51,7 @@ page{
 } */
 .micImg{
   width: 100%;
-  margin-top: 5%;
+  margin-top: -2%;
   display: flex;
   /*设置显示样式**/
   align-items: center;
@@ -84,43 +84,45 @@ page{
 
 }
 .playBut{
-  border: 3px solid white;
-  border-style: solid;
-  border-width: 2px;
-  height: 50px;
-  width: 50px;
-  position: absolute;
-  z-index: 1;
-  border-radius: 50%;
+  border: 1px solid white;
+border-style: solid;
+border-width: 2px;
+height: 40px;
+width: 40px;
+position: absolute;
+z-index: 1;
+border-radius: 50%;
+
 
 }
 .triangle-right {
-  border-top: 20px solid transparent;
-  border-left: 32px solid white;
-  border-bottom: 20px solid transparent;
+  border-top: 13px solid transparent;
+  border-left: 22px solid white;
+  border-bottom: 13px solid transparent;
   position: absolute;
   z-index: 1;
   margin-left: 1%;
+  
 
   
 }
 .paused{
-  border:3px solid white;
-  border-style: solid;
-  height: 50rpx;
+  height: 40rpx;
   position: absolute;
   z-index: 1;
   margin-left: -1%;
+  border-left: white 4px solid;
+  
 
   
 }
 .paused2{
-  border:3px solid white;
-  border-style: solid;
-  height: 50rpx;
-  position: absolute;
-  z-index: 1;
-  margin-left: 2%;
+  height: 40rpx;
+position: absolute;
+z-index: 1;
+margin-left: 10rpx;
+border-right: white 4px solid;
+
 
 
 }
@@ -215,3 +217,36 @@ display: flex;
   width: 100%;
   color: rgb(59, 172, 248);
 }
+.custom{ 
+   position: fixed; 
+    width: 100%; 
+     top: 0;  
+     left: 0;
+       height: 45px; 
+          z-index: 999;
+          display: flex;    /*设置显示样式**/
+    align-items: center;    /**子view垂直居中*/
+    vertical-align: center; /**垂直居中*/
+    justify-content: center;
+        }
+.custom text{ 
+    font-size: 34rpx; 
+     font-weight: 500;
+      }
+.empty_custom{ 
+   height: 45px;
+     width: 100%
+    }
+    .t1{
+
+    }
+    .t2{
+position: absolute;
+font-weight: 1;
+    }
+    .t3{
+      font-weight: 1;
+      display: flex;    /*设置显示样式**/
+      justify-content: center;
+
+    }

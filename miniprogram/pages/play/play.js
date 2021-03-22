@@ -19,40 +19,45 @@ Page({
        play:true,
        paused:false,
        playSatus: "",
-       comm:'',
+       info:'',
        song:'',
        songName:"",
        comment:'',
        condition:true,
        shotStatus:false,
-       currentIndex:''
+       currentIndex:'',
+       shotYes:'',
+       statusBarHeight: app.globalData.statusBarHeight,
+       scrollTop:0,
       },
 
       /**
        * 生命周期函数--监听页面加载
        */
-
+      onPageScroll: function (ev) {
+        this.setData({
+          scrollTop: ev.scrollTop   
+        })
+      },
       
           playing: function (e) {
             var th= this
-            var src = e.currentTarget.dataset.src;
+            var src = 'http://112.124.203.93'+th.data.song.url;
+            console.log('lianjie---'+src)
             mic.src = src;
-            wx.request({
-              url: th.data.hp+'/lrc',
+            wx.cloud.callFunction({
+              name: 'bridge',//你的云函数名称
               data: {
-                'fileName': th.data.hp+th.data.lrcFile,
-              },
-              method: 'post',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              success: function (res) {
-                
-                th.setData({
-                 lrc: res.data
-                 
-                })
-              }
+                url: 'http://112.124.203.93/lrc',
+                fileName: 'http://112.124.203.93'+th.data.lrcFile,
+              } 
+                }).then( (res)=>{
+        console.log(res);
+        console.log(res.result)
+        th.setData({
+          lrc: res.result
+          
+         })
               }),
               console.log("对不对————"+th.data.playSatus)
             if(th.data.playSatus){
@@ -63,7 +68,7 @@ Page({
             }else{
               mic.play();
               app.globalData.playStauts=true
-            //mic.autoplay = true    
+            mic.autoplay = true    
             mic.onPlay(() => {
               console.log('开始播放')
               th.setData({
@@ -81,7 +86,7 @@ Page({
         let currentT= mic.currentTime
         let duration = mic.duration.toFixed(2)*1000
         let currentTime = currentT.toFixed(2)*1000
-        this.setData({
+        th.setData({
           currentTime,
           duration
         })
@@ -116,7 +121,7 @@ Page({
   comment: function(e){
     var th  = this
     th.setData({
-      comm: e.detail.value
+      info: e.detail.value
     })
   },
   
@@ -133,105 +138,89 @@ Page({
     wx.navigateTo({
       url: '../login/login'
     })
-    }else{
-    wx.request({
-      url: th.data.hp+'/comment',
+    }else{  
+      
+      wx.cloud.callFunction({
+      name: 'bridge',//你的云函数名称
       data: {
-        'comm':th.data.comm,
-        'sid': header.Cookie,
-        'song': th.data.songName
-      },
-      method: 'post',
-      header: header, 
-      success: function (res) {
-        console.log('res.data------'+res.data)
+        url: 'http://112.124.203.93/comment',
+        info:th.data.info,
+        sid: header.Cookie,
+        sId: th.data.song.sId
+      } 
+    }).then( (res)=>{
+      console.log(res);
+      console.log(res.result)
+      console.log('res.data------'+res.result)
           th.setData({
-            comment:res.data
+            comment:res.result
           })
-      }
-    })
+      })
   }
   },
   more: function() {
     var th = this
-    wx.request({
-      url: th.data.hp+'/commMore',
+    wx.cloud.callFunction({
+      name: 'bridge',//你的云函数名称
       data: {
-        'song': th.data.songName
-      },
-      method: 'post',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-          th.setData({
-            comment:res.data,
-            condition:false
-          })
-      }
+        url: 'http://112.124.203.93/commMore',
+        sId: th.data.song.sId
+      } 
+    }).then( (res)=>{
+      console.log(res);
+      console.log(res.result)
+      th.setData({
+        comment:res.result.comment,
+        condition:false
+      })
     })
-
-  },
+  }, 
           onLoad: function (options) {
             var name = options.name;
             var singer = options.singer;
+            var sId = options.id;
             var th = this
-            console.log(name + singer )
-            wx.request({
-              url: th.data.hp+'/songMore',
+            console.log('----------------'+name+singer)
+            wx.cloud.callFunction({
+              name: 'bridge',//你的云函数名称
               data: {
-                'name': name,
-                'singer': singer,
-              },
-              method: 'post',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              success: function (res) {
+                url: 'http://112.124.203.93/songMore',
+                name: name,
+                singer: singer,
+                sId: sId,
+              } 
+            }).then( (res)=>{
+              console.log(res);
+              console.log(res.result)
+              th.setData({
+                song:res.result.song,
+                songName: res.result.song.name,
+                lrcFile: res.result.song.lrc,
+                shotYes: res.result.shotYes,
+                comment:res.result.comment,
+              })
+              wx.setNavigationBarTitle({
+                title: th.data.songName
+              })
+              if(res.result.comment.length<5){
                 th.setData({
-                  song:res.data,
-                  songName: res.data.name,
-                  lrcFile: res.data.lrc
+                  condition:false,
                 })
-                console.log("??????????"+th.data.songName) 
-              }
-            }),
-           console.log("??????????"+th.data.songName) 
-            wx.request({
-              url: th.data.hp+'/commentMore',
-              data: {
-                'song': name
-              },
-              method: 'post',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              success: function (res) {
-                console.log('res',res)
-                res.data.forEach(item=>{
-                  item.shotStatus = false
-                })
+              }else{
                 th.setData({
-                  comment:res.data,
+                  condition:true,
                 })
-                if(res.data.length<5){
-                  th.setData({
-                    condition:false,
-                  })
-                }else{
-                  th.setData({
-                    condition:true,
-                  })
-                } 
               }
-            })
-            console.log("th.data.comment======"+th.data.comment)
-          },
+          })
+            },
+           
    shotYes: function(e){
     var date = e.currentTarget.dataset.date;
-    var song = e.currentTarget.dataset.song;
+    var sId = e.currentTarget.dataset.sid;
+    var cId = e.currentTarget.dataset.cid;
     var index =e.currentTarget.dataset.index
     var th = this
+    console.log('sId------'+sId+"date-----"+date)
     var  header = getApp().globalData.header;
     console.log("header---------"+header.Cookie)
     if(header.Cookie.length==0){
@@ -244,32 +233,28 @@ Page({
       url: '../login/login'
     })
   }else{
-    let arr = this.data.comment
-    arr[index].shotStatus = !arr[index].shotStatus
-    this.setData({
-      comment:arr
-    })
-    return
-      wx.request({
-        url: th.data.hp+'/shotYes',
-        data: {
-          'date': date,
-          'song':song
-        },
-        method: 'post',
-        header: header,
-        success: function (res) {
-          console.log(res)
-          th.setData({
-            comment:res.data.comment,
-            shotStatus:res.data.shotStatus,
-            currentIndex:index,
-          })
-          console.log(res.data.shotStatus)
-          }
-        })
-    }
-    
+    // let arr = this.data.comment
+    // arr[index].shotStatus = !arr[index].shotStatus
+    // this.setData({
+    //   comment:arr
+    // })
+    wx.cloud.callFunction({
+      name: 'bridge',//你的云函数名称
+      data: {
+        url: 'http://112.124.203.93/shotYes',
+        date: date,
+          sId:sId,
+          cId:cId
+      } 
+    }).then( (res)=>{
+      console.log(res);
+      console.log(res.result)
+      th.setData({
+        comment:res.result.comment,
+        shotYes: res.result.shotYes
+      })
+      })
+    }   
    },
 // collect: function(e){
 //   var th = this

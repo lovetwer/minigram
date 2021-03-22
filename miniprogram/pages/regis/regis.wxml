@@ -2,8 +2,14 @@
 <view class="head">
 <input placeholder="账号(仅支持数字)" bindinput="user" class="user"></input>
   <input placeholder="用户名" bindinput="userName" class="userName"></input>
-  <input placeholder="密码" bindinput="passWord" type='password' class="passWord"></input>
-  <input placeholder="身份" bindinput="type" class="type"></input>
+  <input placeholder="密码" bindinput="passWord"  class="passWord"></input>
+
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}">
+      <view class="tui-menu-list"><radio color="red" value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}</view>
+    </label>
+  </radio-group>
+
 </view>
 <view class="body">
    <text bindtap="headPic" class="picText">添加头像</text>

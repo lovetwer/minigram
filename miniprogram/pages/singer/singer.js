@@ -20,24 +20,27 @@ Page({
          songer: JSON.parse(options.songer)
        })
        console.log(th.data.songer.name)
-       wx.request({
-         url: th.data.hp+'/simpSong',
-         data: { 
-           'name':"",
-           'singer':th.data.songer.name
-         },
-         method: 'post',
-         header: {
-          'content-type': 'application/x-www-form-urlencoded'
-         },
-         success: function(res){
-           console.log(res) 
-           th.setData({
-             song:res.data
-           })
-         console.log(th.data.song)
+
+       wx.cloud.callFunction({
+        name: 'bridge',//你的云函数名称
+        data: {
+          url: th.data.hp+'/simpSong',
+          name:"",
+           singer:th.data.songer.name
         }
-       })
+      }).then( (res)=>{
+          console.log(res);
+          
+          th.setData({
+            song:res.result
+          })
+        console.log(th.data.song)
+       
+      })
+        
+
+      
+         
   },
 
   /**
